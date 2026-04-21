@@ -24,11 +24,6 @@ export async function addBookmark(
   return data;
 }
 
-export async function removeBookmark(client: NarrioSupabaseClient, bookmarkId: string) {
-  const { error } = await client.from("bookmarks").delete().eq("id", bookmarkId);
-  if (error) throw error;
-}
-
 export async function listUserBookmarks(client: NarrioSupabaseClient, userId: string) {
   const { data, error } = await client
     .from("bookmarks")

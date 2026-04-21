@@ -12,24 +12,19 @@ export async function listPublishedStories(client: NarrioSupabaseClient) {
   return data ?? [];
 }
 
-export async function getStoryById(client: NarrioSupabaseClient, storyId: string) {
+export async function listStoriesByAuthor(client: NarrioSupabaseClient, authorId: string) {
   const { data, error } = await client
     .from("stories")
     .select("*")
-    .eq("id", storyId)
-    .single();
+    .eq("author_id", authorId)
+    .order("updated_at", { ascending: false });
 
   if (error) throw error;
-  return data;
+  return data ?? [];
 }
 
-export async function getStoryBySlug(client: NarrioSupabaseClient, slug: string) {
-  const { data, error } = await client
-    .from("stories")
-    .select("*")
-    .eq("slug", slug)
-    .single();
-
+export async function getStoryById(client: NarrioSupabaseClient, storyId: string) {
+  const { data, error } = await client.from("stories").select("*").eq("id", storyId).single();
   if (error) throw error;
   return data;
 }
@@ -40,7 +35,7 @@ export async function createStory(
     authorId: string;
     title: string;
     slug: string;
-    synopsis?: string | null;
+    synopsis?: string;
     visibility?: "public" | "unlisted" | "private";
   }
 ) {
@@ -52,15 +47,17 @@ export async function createStory(
       slug: input.slug,
       synopsis: input.synopsis ?? null,
       visibility: input.visibility ?? "public",
-      status: "draft"
+      status: "draft",
+      allow_forks: true
     })
     .select("*")
     .single();
 
   if (error) throw error;
-  return data;
-}
 
+  const refreshed = data.main_branch_id ? data : await getStoryById(client, data.id);
+  return refreshed;
+}
 
 export async function forkStory(
   client: NarrioSupabaseClient,
@@ -80,51 +77,40 @@ export async function forkStory(
 
   if (branches.error) throw branches.error;
 
-  const { data: newStory, error: newStoryError } = await client
+  const forkedStory = await createStory(client, {
+    authorId: input.newAuthorId,
+    title: input.title ?? `${sourceStory.title} — Fork`,
+    slug: input.slug,
+    synopsis: sourceStory.synopsis ?? undefined,
+    visibility: "public"
+  });
+
+  await client
     .from("stories")
-    .insert({
-      author_id: input.newAuthorId,
-      forked_from_story_id: input.sourceStoryId,
-      title: input.title ?? `${sourceStory.title} — Fork`,
-      slug: input.slug,
-      synopsis: sourceStory.synopsis,
-      cover_url: sourceStory.cover_url,
-      visibility: "public",
-      status: "draft",
-      allow_forks: true
-    })
-    .select("*")
-    .single();
-
-  if (newStoryError) throw newStoryError;
-
-  const insertedStory = newStory.main_branch_id ? newStory : await getStoryById(client, newStory.id);
+    .update({ forked_from_story_id: input.sourceStoryId })
+    .eq("id", forkedStory.id);
 
   const sourceMainBranch = branches.data?.find((branch) => branch.id === sourceStory.main_branch_id);
-  const targetMainBranchId = insertedStory.main_branch_id;
-  const sourceBranchId = sourceMainBranch?.id;
+  if (!sourceMainBranch || !forkedStory.main_branch_id) return forkedStory;
 
-  if (!sourceBranchId || !targetMainBranchId) return insertedStory;
-
-  const { data: sourceChapters, error: sourceChaptersError } = await client
+  const chapters = await client
     .from("chapters")
     .select("*")
-    .eq("branch_id", sourceBranchId)
+    .eq("branch_id", sourceMainBranch.id)
     .order("chapter_number", { ascending: true });
 
-  if (sourceChaptersError) throw sourceChaptersError;
+  if (chapters.error) throw chapters.error;
 
-  for (const sourceChapter of sourceChapters ?? []) {
+  for (const chapter of chapters.data ?? []) {
     const { data: newChapter, error: newChapterError } = await client
       .from("chapters")
       .insert({
-        story_id: insertedStory.id,
-        branch_id: targetMainBranchId,
-        chapter_number: sourceChapter.chapter_number,
-        title: sourceChapter.title,
-        slug: sourceChapter.slug,
-        summary: sourceChapter.summary,
-        is_published: false,
+        story_id: forkedStory.id,
+        branch_id: forkedStory.main_branch_id,
+        chapter_number: chapter.chapter_number,
+        title: chapter.title,
+        slug: chapter.slug,
+        summary: chapter.summary,
         created_by: input.newAuthorId
       })
       .select("*")
@@ -132,29 +118,29 @@ export async function forkStory(
 
     if (newChapterError) throw newChapterError;
 
-    const { data: latestVersion, error: latestVersionError } = await client
+    const latest = await client
       .from("chapter_versions")
       .select("*")
-      .eq("chapter_id", sourceChapter.id)
+      .eq("chapter_id", chapter.id)
       .eq("is_current", true)
       .single();
 
-    if (latestVersionError) throw latestVersionError;
+    if (latest.error) throw latest.error;
 
-    const { error: insertVersionError } = await client.from("chapter_versions").insert({
+    const insertVersion = await client.from("chapter_versions").insert({
       chapter_id: newChapter.id,
       version_number: 1,
-      title: latestVersion.title,
-      excerpt: latestVersion.excerpt,
-      content_md: latestVersion.content_md,
-      source: latestVersion.source,
+      title: latest.data.title,
+      excerpt: latest.data.excerpt,
+      content_md: latest.data.content_md,
+      source: latest.data.source,
       commit_message: "Forked from source story",
       created_by: input.newAuthorId,
       is_current: true
     });
 
-    if (insertVersionError) throw insertVersionError;
+    if (insertVersion.error) throw insertVersion.error;
   }
 
-  return insertedStory;
+  return getStoryById(client, forkedStory.id);
 }

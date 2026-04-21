@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getBranchById, getChaptersByBranchId, getStoryById } from "@narrio/api";
-import { PageHeader, SectionCard } from "@narrio/ui";
+import { PageHeader, SectionCard, Stack } from "@narrio/ui";
 import { createClient } from "../../../../../lib/supabase/server";
 
 export default async function StoryBranchPage(props: {
@@ -14,7 +14,7 @@ export default async function StoryBranchPage(props: {
   const chapters = await getChaptersByBranchId(supabase, params.branchId);
 
   return (
-    <div className="narrio-stack">
+    <Stack>
       <PageHeader
         eyebrow="Branch"
         title={`${story.title} — ${branch.name}`}
@@ -26,10 +26,7 @@ export default async function StoryBranchPage(props: {
         }
       />
 
-      <SectionCard
-        title="Chapter list"
-        description="Published and draft visibility is controlled by RLS."
-      >
+      <SectionCard title="Chapter list" description="Published and draft visibility is controlled by RLS.">
         <div className="narrio-list">
           {chapters.length ? (
             chapters.map((chapter) => (
@@ -41,9 +38,7 @@ export default async function StoryBranchPage(props: {
                 <strong>
                   Chapter {chapter.chapter_number}: {chapter.title}
                 </strong>
-                <div className="narrio-muted">
-                  {chapter.summary ?? "No summary yet."}
-                </div>
+                <div className="narrio-muted">{chapter.summary ?? "No summary yet."}</div>
               </Link>
             ))
           ) : (
@@ -51,6 +46,6 @@ export default async function StoryBranchPage(props: {
           )}
         </div>
       </SectionCard>
-    </div>
+    </Stack>
   );
 }

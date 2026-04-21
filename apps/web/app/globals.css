@@ -1,14 +1,17 @@
-* {
-  box-sizing: border-box;
+:root {
+  color-scheme: dark;
 }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
+  background: #0b1220;
+  color: #f8fafc;
   font-family: Arial, Helvetica, sans-serif;
-  background: #0b1020;
-  color: #f7f8fb;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 a {
@@ -16,46 +19,91 @@ a {
   text-decoration: none;
 }
 
-body {
-  min-height: 100vh;
-}
-
 .narrio-shell {
-  max-width: 1180px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
+}
+
+.narrio-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0 24px;
+}
+
+.narrio-brand {
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
 .narrio-nav {
   display: flex;
   gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.narrio-nav-links {
-  display: flex;
-  gap: 12px;
   flex-wrap: wrap;
 }
 
-.narrio-badge {
-  display: inline-flex;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #19233f;
-  color: #b2c2f8;
-  font-size: 12px;
+.narrio-nav a,
+.narrio-nav button,
+.narrio-button {
+  background: #172033;
+  color: #f8fafc;
+  border: 1px solid #283349;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
 }
 
-.narrio-button {
+.narrio-button-secondary {
   display: inline-flex;
-  padding: 10px 14px;
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid #31405d;
   border-radius: 12px;
-  border: 1px solid #31406b;
-  background: #121b34;
-  color: #f7f8fb;
+  padding: 10px 14px;
+}
+
+.narrio-hero,
+.narrio-card {
+  background: #111827;
+  border: 1px solid #243047;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.narrio-card + .narrio-card {
+  margin-top: 16px;
+}
+
+.narrio-page-header {
+  margin-bottom: 18px;
+}
+
+.narrio-page-header-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.narrio-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.narrio-muted {
+  color: #94a3b8;
+}
+
+.narrio-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .narrio-grid {
@@ -63,113 +111,83 @@ body {
   gap: 16px;
 }
 
-.narrio-grid-2 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+.narrio-grid.library {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-.narrio-card {
-  background: #12192f;
-  border: 1px solid #223152;
-  border-radius: 20px;
-  padding: 18px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
-}
-
-.narrio-eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #9db2ff;
-  margin-bottom: 8px;
-}
-
-.narrio-title {
-  margin: 0 0 6px;
-  font-size: 32px;
-}
-
-.narrio-section-title {
-  margin: 0 0 8px;
-  font-size: 22px;
-}
-
-.narrio-muted {
-  color: #b8c2dd;
-  line-height: 1.6;
-}
-
-.narrio-header-row {
-  display: flex;
+.narrio-two-column {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
   gap: 16px;
-  align-items: start;
-  justify-content: space-between;
 }
 
 .narrio-list {
-  display: grid;
-  gap: 12px;
-  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .narrio-list-item {
+  display: block;
+  border: 1px solid #27334a;
+  background: #0f172a;
+  border-radius: 14px;
   padding: 14px;
-  border-radius: 16px;
-  background: #0d1428;
-  border: 1px solid #1d2a47;
 }
 
-.narrio-kv {
-  display: grid;
+.narrio-field {
+  display: flex;
+  flex-direction: column;
   gap: 6px;
 }
 
+.narrio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.narrio-input,
+.narrio-textarea,
+.narrio-select {
+  width: 100%;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0b1220;
+  color: #f8fafc;
+  padding: 12px;
+}
+
+.narrio-inline-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #94a3b8;
+  font-size: 0.92rem;
+}
+
 .narrio-code {
-  font-family: "Courier New", Courier, monospace;
+  background: #0b1220;
+  border: 1px solid #223047;
+  border-radius: 16px;
+  padding: 16px;
   white-space: pre-wrap;
-  background: #0c1326;
-  border-radius: 16px;
-  padding: 16px;
-  border: 1px solid #203152;
 }
 
-.narrio-editor {
-  width: 100%;
-  min-height: 320px;
-  border-radius: 16px;
-  border: 1px solid #2b3c66;
-  background: #09111f;
-  color: #f7f8fb;
-  padding: 16px;
-  resize: vertical;
+.narrio-writer-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.narrio-stack {
-  display: grid;
-  gap: 16px;
+.narrio-divider {
+  height: 1px;
+  background: #263449;
+  margin: 10px 0;
 }
 
-.narrio-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.narrio-table th,
-.narrio-table td {
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #243253;
-}
-
-@media (max-width: 720px) {
-  .narrio-shell {
-    padding: 16px;
-  }
-
-  .narrio-title {
-    font-size: 26px;
-  }
-
-  .narrio-header-row {
-    flex-direction: column;
+@media (max-width: 900px) {
+  .narrio-two-column {
+    grid-template-columns: 1fr;
   }
 }

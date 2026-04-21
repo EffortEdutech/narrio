@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { listPublishedStories } from "@narrio/api";
-import { PageHeader, SectionCard } from "@narrio/ui";
+import { PageHeader, SectionCard, Stack } from "@narrio/ui";
 import { createClient } from "../../lib/supabase/server";
 
 export default async function LibraryPage() {
@@ -8,30 +8,32 @@ export default async function LibraryPage() {
   const stories = await listPublishedStories(supabase);
 
   return (
-    <div className="narrio-stack">
+    <Stack>
       <PageHeader
         eyebrow="Library"
-        title="Published stories"
-        description="This reads from the Sprint 1 stories table through the shared API package."
+        title="Public stories"
+        description="Published stories are visible here through RLS."
       />
 
-      <SectionCard
-        title="Story feed"
-        description={stories.length ? "Public published stories from Supabase." : "Run the seed after creating a local auth user to see demo content."}
-      >
-        <div className="narrio-list">
-          {stories.length ? (
-            stories.map((story) => (
-              <Link key={story.id} href={`/story/${story.id}`} className="narrio-list-item">
-                <strong>{story.title}</strong>
-                <div className="narrio-muted">{story.synopsis ?? "No synopsis yet."}</div>
-              </Link>
-            ))
-          ) : (
-            <div className="narrio-list-item">No stories found.</div>
-          )}
-        </div>
-      </SectionCard>
-    </div>
+      <div className="narrio-grid library">
+        {stories.length ? (
+          stories.map((story) => (
+            <SectionCard key={story.id} title={story.title} description={story.synopsis ?? "No synopsis yet."}>
+              <div className="narrio-inline-meta">
+                <span>Status: {story.status}</span>
+                <span>Visibility: {story.visibility}</span>
+              </div>
+              <div style={{ marginTop: 14 }}>
+                <Link className="narrio-button" href={`/story/${story.id}`}>
+                  Open story
+                </Link>
+              </div>
+            </SectionCard>
+          ))
+        ) : (
+          <SectionCard title="No public stories yet" description="Seed data or publish a story to populate the library." />
+        )}
+      </div>
+    </Stack>
   );
 }

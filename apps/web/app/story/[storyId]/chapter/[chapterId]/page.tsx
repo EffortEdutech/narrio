@@ -1,8 +1,8 @@
 import { getChapterById, getCurrentVersionByChapterId, getStoryById } from "@narrio/api";
-import { PageHeader, SectionCard } from "@narrio/ui";
+import { InlineMeta, PageHeader, SectionCard, Stack } from "@narrio/ui";
 import { createClient } from "../../../../../lib/supabase/server";
 
-export default async function ChapterPage(props: {
+export default async function ChapterReaderPage(props: {
   params: Promise<{ storyId: string; chapterId: string }>;
 }) {
   const params = await props.params;
@@ -10,22 +10,26 @@ export default async function ChapterPage(props: {
 
   const story = await getStoryById(supabase, params.storyId);
   const chapter = await getChapterById(supabase, params.chapterId);
-  const version = await getCurrentVersionByChapterId(supabase, params.chapterId);
+  const currentVersion = await getCurrentVersionByChapterId(supabase, params.chapterId);
 
   return (
-    <div className="narrio-stack">
+    <Stack>
       <PageHeader
         eyebrow="Reader"
-        title={`${story.title} — ${chapter.title}`}
-        description={`Current version: v${version.version_number}`}
+        title={`${story.title} — Chapter ${chapter.chapter_number}`}
+        description={chapter.title}
       />
 
-      <SectionCard
-        title="Excerpt"
-        description={version.excerpt ?? "No excerpt available for this version."}
-      >
-        <div className="narrio-code">{version.content_md}</div>
+      <SectionCard title="Current version" description="Reader sees the current version content.">
+        <InlineMeta>
+          <span>Version {currentVersion.version_number}</span>
+          <span>Source: {currentVersion.source}</span>
+          <span>Commit: {currentVersion.commit_message ?? "No commit message"}</span>
+        </InlineMeta>
+        <div className="narrio-code" style={{ marginTop: 16 }}>
+          {currentVersion.content_md}
+        </div>
       </SectionCard>
-    </div>
+    </Stack>
   );
 }

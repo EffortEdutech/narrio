@@ -1,20 +1,20 @@
 {
   "name": "@narrio/web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --port 3100",
+    "dev": "next dev --port 3900",
     "build": "next build",
-    "start": "next start --port 3100",
-    "lint": "echo \"Lint step reserved for Sprint 2\"",
+    "start": "next start --port 3900",
+    "lint": "echo \"Lint step reserved for later\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@narrio/api": "workspace:*",
     "@narrio/db": "workspace:*",
     "@narrio/ui": "workspace:*",
-    "@supabase/ssr": "^0.7.0",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.49.0",
     "next": "^16.0.0",
     "react": "^19.0.0",

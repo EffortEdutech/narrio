@@ -1,43 +1,38 @@
 import Link from "next/link";
-import { PageHeader, SectionCard } from "@narrio/ui";
+import { PageHeader, SectionCard, Stack } from "@narrio/ui";
 
 export default function HomePage() {
   return (
-    <div className="narrio-stack">
-      <PageHeader
-        eyebrow="Narrio"
-        title="Branch-first social storytelling"
-        description="Read stories, explore branches, and prepare the writer workflow around immutable chapter versions."
-        actions={
-          <Link className="narrio-button" href="/library">
-            Open Library
-          </Link>
-        }
-      />
-
-      <div className="narrio-grid narrio-grid-2">
-        <SectionCard
-          title="Reader loop"
-          description="The first shipped loop is simple: library → story → branch → chapter."
-        >
-          <div className="narrio-list">
-            <div className="narrio-list-item">Library listing of published stories</div>
-            <div className="narrio-list-item">Story page with branch explorer</div>
-            <div className="narrio-list-item">Chapter page with latest current version</div>
-          </div>
-        </SectionCard>
-
-        <SectionCard
-          title="Writer loop"
-          description="Sprint 1 includes the editor shell so the structure exists before we wire create/commit actions."
-        >
-          <div className="narrio-list">
-            <div className="narrio-list-item">Story editor entry</div>
-            <div className="narrio-list-item">Branch-specific editor shell</div>
-            <div className="narrio-list-item">Version history area</div>
-          </div>
-        </SectionCard>
+    <Stack>
+      <div className="narrio-hero">
+        <PageHeader
+          eyebrow="Sprint 2"
+          title="Branch-first storytelling is now writer-capable."
+          description="Create stories, save chapter versions, restore older drafts, and branch into alternate paths."
+          actions={
+            <div className="narrio-nav">
+              <Link className="narrio-button" href="/write">
+                Open Writer Area
+              </Link>
+              <Link className="narrio-button-secondary" href="/library">
+                Browse Library
+              </Link>
+            </div>
+          }
+        />
       </div>
-    </div>
+
+      <SectionCard
+        title="Narrio philosophy"
+        description="Simple Git-style branching, not a visual graph-first editor."
+      >
+        <div className="narrio-list">
+          <div className="narrio-list-item">Stories own many branches.</div>
+          <div className="narrio-list-item">Branches own many chapters.</div>
+          <div className="narrio-list-item">Chapters own many versions.</div>
+          <div className="narrio-list-item">Writers can restore a version or branch into a new path.</div>
+        </div>
+      </SectionCard>
+    </Stack>
   );
 }

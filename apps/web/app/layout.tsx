@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
+import type { ReactNode } from "react";
+import { AppShell } from "@narrio/ui";
 import "./globals.css";
 
 export const metadata = {
@@ -11,20 +12,18 @@ export default function RootLayout(props: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <div className="narrio-shell">
-          <nav className="narrio-nav">
-            <div className="narrio-nav-links">
-              <Link className="narrio-button" href="/">
-                Narrio
-              </Link>
-              <Link className="narrio-button" href="/library">
-                Library
-              </Link>
-            </div>
-            <span className="narrio-badge">Sprint 1 Foundation</span>
-          </nav>
+        <AppShell>
+          <header className="narrio-topbar">
+            <div className="narrio-brand">Narrio</div>
+            <nav className="narrio-nav">
+              <Link href="/">Home</Link>
+              <Link href="/library">Library</Link>
+              <Link href="/write">Write</Link>
+              <Link href="/signin">Sign in</Link>
+            </nav>
+          </header>
           {props.children}
-        </div>
+        </AppShell>
       </body>
     </html>
   );

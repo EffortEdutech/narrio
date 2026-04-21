@@ -26,7 +26,7 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           });
         } catch {
-          // This can be ignored in Server Components when proxy.ts handles refreshes.
+          // Safe to ignore in Server Components; proxy.ts handles refreshes.
         }
       }
     }

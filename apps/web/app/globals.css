@@ -1,0 +1,175 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b1020;
+  color: #f7f8fb;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.narrio-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.narrio-nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.narrio-nav-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.narrio-badge {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #19233f;
+  color: #b2c2f8;
+  font-size: 12px;
+}
+
+.narrio-button {
+  display: inline-flex;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #31406b;
+  background: #121b34;
+  color: #f7f8fb;
+}
+
+.narrio-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.narrio-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.narrio-card {
+  background: #12192f;
+  border: 1px solid #223152;
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.narrio-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9db2ff;
+  margin-bottom: 8px;
+}
+
+.narrio-title {
+  margin: 0 0 6px;
+  font-size: 32px;
+}
+
+.narrio-section-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.narrio-muted {
+  color: #b8c2dd;
+  line-height: 1.6;
+}
+
+.narrio-header-row {
+  display: flex;
+  gap: 16px;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.narrio-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.narrio-list-item {
+  padding: 14px;
+  border-radius: 16px;
+  background: #0d1428;
+  border: 1px solid #1d2a47;
+}
+
+.narrio-kv {
+  display: grid;
+  gap: 6px;
+}
+
+.narrio-code {
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  background: #0c1326;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #203152;
+}
+
+.narrio-editor {
+  width: 100%;
+  min-height: 320px;
+  border-radius: 16px;
+  border: 1px solid #2b3c66;
+  background: #09111f;
+  color: #f7f8fb;
+  padding: 16px;
+  resize: vertical;
+}
+
+.narrio-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.narrio-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.narrio-table th,
+.narrio-table td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #243253;
+}
+
+@media (max-width: 720px) {
+  .narrio-shell {
+    padding: 16px;
+  }
+
+  .narrio-title {
+    font-size: 26px;
+  }
+
+  .narrio-header-row {
+    flex-direction: column;
+  }
+}

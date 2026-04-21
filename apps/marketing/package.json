@@ -1,0 +1,21 @@
+{
+  "name": "@narrio/marketing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3102",
+    "build": "next build",
+    "start": "next start --port 3102",
+    "lint": "echo \"Lint step reserved for Sprint 2\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

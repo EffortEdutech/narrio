@@ -1,20 +1,26 @@
 {
-  "name": "narrio",
+  "name": "@narrio/web",
+  "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "turbo run dev --parallel",
-    "dev:web": "pnpm --filter @narrio/web dev",
-    "build": "turbo run build",
-    "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck",
-    "dev:marketing": "pnpm --filter @narrio/marketing dev"
+    "dev": "next dev --port 3800",
+    "build": "next build",
+    "start": "next start --port 3800",
+    "lint": "echo \"Lint step reserved for Sprint 2\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@narrio/api": "workspace:*",
+    "@narrio/db": "workspace:*",
+    "@narrio/ui": "workspace:*",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.49.0",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "turbo": "^2.0.0",
     "typescript": "^5.8.0"
   }
 }

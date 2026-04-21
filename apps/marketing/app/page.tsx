@@ -7,7 +7,7 @@ export default function MarketingPage() {
         the architecture plan.
       </p>
       <div className="marketing-actions">
-        <a className="marketing-button" href="http://localhost:3100">
+        <a className="marketing-button" href="http://localhost:3800">
           Open Web App
         </a>
       </div>

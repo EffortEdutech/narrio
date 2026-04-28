@@ -1,0 +1,244 @@
+.discoveryHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.5fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.heroCard {
+  border: 1px solid rgba(196, 181, 253, 0.28);
+  border-radius: 28px;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at top left, rgba(244, 114, 182, 0.24), transparent 42%),
+    linear-gradient(145deg, rgba(30, 27, 75, 0.88), rgba(15, 23, 42, 0.78));
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32);
+}
+
+.heroCard span,
+.resultEyebrow {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.32rem 0.7rem;
+  background: rgba(251, 191, 36, 0.12);
+  color: #fde68a;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heroCard strong {
+  display: block;
+  margin-top: 0.9rem;
+  color: #f8fafc;
+  font-size: 1.35rem;
+}
+
+.heroCard p {
+  margin: 0.55rem 0 0;
+  color: rgba(226, 232, 240, 0.76);
+  line-height: 1.65;
+}
+
+.discoveryForm {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.4fr) repeat(3, minmax(160px, 0.8fr)) auto;
+  gap: 0.9rem;
+  align-items: end;
+}
+
+.discoveryForm label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.discoveryForm label span {
+  color: rgba(226, 232, 240, 0.76);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.discoveryForm input,
+.discoveryForm select {
+  min-height: 46px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 16px;
+  padding: 0.72rem 0.9rem;
+  background: rgba(15, 23, 42, 0.68);
+  color: #f8fafc;
+  outline: none;
+}
+
+.discoveryForm input:focus,
+.discoveryForm select:focus {
+  border-color: rgba(216, 180, 254, 0.76);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.16);
+}
+
+.formActions {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.resultHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+}
+
+.resultHeader h2 {
+  margin: 0.55rem 0 0;
+  color: #f8fafc;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+}
+
+.libraryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.storyCard {
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 30px;
+  background:
+    linear-gradient(145deg, rgba(15, 23, 42, 0.86), rgba(30, 27, 75, 0.66)),
+    rgba(15, 23, 42, 0.82);
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.26);
+}
+
+.storyCover {
+  min-height: 150px;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(251, 191, 36, 0.24), transparent 32%),
+    radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.22), transparent 34%),
+    linear-gradient(135deg, rgba(88, 28, 135, 0.68), rgba(15, 23, 42, 0.92));
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.storyCover span {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.36rem 0.72rem;
+  background: rgba(15, 23, 42, 0.58);
+  color: #f8fafc;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.storyBody {
+  padding: 1.15rem;
+}
+
+.storyTopline {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgba(226, 232, 240, 0.64);
+  font-size: 0.86rem;
+}
+
+
+.authorLink {
+  color: rgba(226, 232, 240, 0.78);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.authorLink:hover {
+  color: #f8fafc;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.storyBody h3 {
+  margin: 0.75rem 0 0;
+  color: #f8fafc;
+  font-size: 1.45rem;
+}
+
+.storyBody p {
+  min-height: 3.25rem;
+  margin: 0.6rem 0 1rem;
+  color: rgba(226, 232, 240, 0.74);
+  line-height: 1.6;
+}
+
+.latestSignal,
+.latestSignalMuted {
+  display: grid;
+  gap: 0.28rem;
+  margin-top: 1rem;
+  border: 1px solid rgba(196, 181, 253, 0.22);
+  border-radius: 20px;
+  padding: 0.9rem;
+  background: rgba(15, 23, 42, 0.48);
+  text-decoration: none;
+}
+
+.latestSignal span {
+  color: #c4b5fd;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.latestSignal strong {
+  color: #f8fafc;
+}
+
+.latestSignalMuted {
+  color: rgba(226, 232, 240, 0.62);
+}
+
+.storyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1040px) {
+  .discoveryHero,
+  .libraryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .discoveryForm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formActions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 680px) {
+  .discoveryForm {
+    grid-template-columns: 1fr;
+  }
+
+  .resultHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .storyTopline {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

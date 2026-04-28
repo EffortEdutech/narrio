@@ -1,8 +1,31 @@
 import Link from "next/link";
-import { getBranchesByStoryId, getStoryById, isFollowingStory } from "@narrio/api";
-import { InlineMeta, PageHeader, PrimaryButton, SectionCard, Stack } from "@narrio/ui";
+import { notFound } from "next/navigation";
+import { getPublicStoryOverview, isFollowingStory } from "@narrio/api";
+import { InlineMeta, PrimaryButton, SectionCard, Stack } from "@narrio/ui";
 import { createClient } from "../../../lib/supabase/server";
 import { toggleFollowAction } from "../../reader/actions";
+import styles from "./story-page.module.css";
+
+function formatDate(value?: string | null) {
+  if (!value) return "Not published yet";
+
+  return new Intl.DateTimeFormat("en", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  }).format(new Date(value));
+}
+
+function authorName(author: { display_name: string | null; username: string | null } | null) {
+  return author?.display_name ?? author?.username ?? "Narrio writer";
+}
+
+function timelineLabel(branchType: string) {
+  if (branchType === "main") return "Root timeline";
+  if (branchType === "alternate") return "Alternate path";
+  if (branchType === "experimental") return "Experimental path";
+  return "ForkCraft path";
+}
 
 export default async function StoryPage(props: {
   params: Promise<{ storyId: string }>;
@@ -10,79 +33,207 @@ export default async function StoryPage(props: {
   const { storyId } = await props.params;
   const supabase = await createClient();
 
-  const story = await getStoryById(supabase, storyId);
-  const branches = await getBranchesByStoryId(supabase, storyId);
-
   const {
     data: { user }
   } = await supabase.auth.getUser();
 
+  const overview = await getPublicStoryOverview(supabase, storyId, user?.id ?? null);
+  if (!overview) notFound();
+
+  const {
+    story,
+    author,
+    canEdit,
+    branches,
+    startChapter,
+    latestChapter,
+    mainBranch,
+    totalVisibleBranches,
+    totalVisibleChapters,
+    publishedChapterCount,
+    draftChapterCount,
+    forkTimelineCount
+  } = overview;
+
   const following = user ? await isFollowingStory(supabase, { userId: user.id, storyId }) : false;
-  const visibleBranches = branches.filter(
-    (branch) => branch.visibility === "public" || user?.id === story.author_id || user?.id === branch.created_by
-  );
+  const readableState = story.status === "published" ? "Published universe" : "Private writer preview";
+  const isDiscoverable = story.status === "published" && story.visibility === "public";
+  const isDirectLinkOnly = story.status === "published" && story.visibility === "unlisted";
 
   return (
     <Stack>
-      <PageHeader
-        eyebrow="Story"
-        title={story.title}
-        description={story.synopsis ?? "No synopsis yet."}
-        actions={
-          <div className="narrio-nav">
-            <Link className="narrio-button" href={`/story/${story.id}/timelines`}>
+      <section
+        className={styles.storyHero}
+        style={
+          story.cover_url
+            ? {
+                backgroundImage: `linear-gradient(135deg, rgba(26, 18, 56, 0.92), rgba(124, 58, 237, 0.72)), url(${story.cover_url})`
+              }
+            : undefined
+        }
+      >
+        <div className={styles.heroCopy}>
+          <div className={styles.eyebrow}>{readableState}</div>
+          <h1>{story.title}</h1>
+          <p>{story.synopsis ?? "A branching story universe waiting to be explored."}</p>
+
+          <div className={styles.heroActions}>
+            {startChapter ? (
+              <Link className="narrio-button" href={`/story/${story.id}/chapter/${startChapter.id}`}>
+                Start reading
+              </Link>
+            ) : (
+              <span className={styles.disabledCta}>No readable chapter yet</span>
+            )}
+            <Link className="narrio-button-secondary" href={`/story/${story.id}/timelines`}>
               Explore timelines
-            </Link>
-            <Link className="narrio-button-secondary" href={`/u/${story.author_id}`}>
-              View writer profile
             </Link>
             {user ? (
               <form action={toggleFollowAction}>
                 <input type="hidden" name="storyId" value={story.id} />
                 <input type="hidden" name="redirectPath" value={`/story/${story.id}`} />
-                <PrimaryButton>{following ? "Unfollow story" : "Follow story"}</PrimaryButton>
+                <PrimaryButton>{following ? "Following" : "Follow story"}</PrimaryButton>
               </form>
             ) : (
-              <Link className="narrio-button" href="/signin">
+              <Link className="narrio-button-secondary" href="/signin">
                 Sign in to follow
               </Link>
             )}
           </div>
-        }
-      />
 
-      <SectionCard title="Story metadata" description="Public-facing story information.">
-        <InlineMeta>
-          <span>Status: {story.status}</span>
-          <span>Visibility: {story.visibility}</span>
-          <span>ForkCraft: {story.allow_forks ? "enabled" : "disabled"}</span>
-          <span>Origin: {story.forked_from_story_id ?? "Original story"}</span>
-        </InlineMeta>
-      </SectionCard>
+          <InlineMeta>
+            <span>{isDiscoverable ? "Discoverable in Library" : isDirectLinkOnly ? "Unlisted direct link" : story.visibility}</span>
+            <span>{story.allow_forks ? "ForkCraft enabled" : "ForkCraft closed"}</span>
+            <span>{mainBranch ? `Root: ${mainBranch.name}` : "No root timeline"}</span>
+          </InlineMeta>
+        </div>
+
+        <aside className={styles.heroPanel}>
+          <div className={styles.coverOrb}>{story.cover_url ? "Cover" : "Narrio"}</div>
+          <div className={styles.statGrid}>
+            <div>
+              <strong>{totalVisibleBranches}</strong>
+              <span>Timelines</span>
+            </div>
+            <div>
+              <strong>{publishedChapterCount}</strong>
+              <span>Published chapters</span>
+            </div>
+            <div>
+              <strong>{forkTimelineCount}</strong>
+              <span>Fork paths</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <div className={styles.storyToolbar}>
+        <div>
+          <strong>By {authorName(author)}</strong>
+          <span>{author?.bio ?? "Creator profile is ready for a short author note."}</span>
+        </div>
+        <div className="narrio-nav">
+          <Link className="narrio-button-secondary" href={`/u/${story.author_id}`}>
+            Writer profile
+          </Link>
+          {canEdit ? (
+            <>
+              <Link className="narrio-button-secondary" href={`/write/publish/${story.id}`}>
+                Publish Center
+              </Link>
+              {story.main_branch_id ? (
+                <Link className="narrio-button" href={`/write/editor/${story.id}/branch/${story.main_branch_id}`}>
+                  Story Studio
+                </Link>
+              ) : null}
+            </>
+          ) : null}
+        </div>
+      </div>
+
+      <div className={styles.kpiGrid}>
+        <SectionCard title="Reading path" description={startChapter ? "Best first step for new readers." : "Publish a chapter to unlock reading."}>
+          {startChapter ? (
+            <Link className={styles.kpiLink} href={`/story/${story.id}/chapter/${startChapter.id}`}>
+              <strong>
+                Chapter {startChapter.chapter_number}: {startChapter.title}
+              </strong>
+              <span>{startChapter.summary ?? "Open the first chapter and enter the story."}</span>
+            </Link>
+          ) : (
+            <p className="narrio-muted">No published chapter is available yet.</p>
+          )}
+        </SectionCard>
+
+        <SectionCard title="Latest signal" description="The newest published point in the universe.">
+          {latestChapter ? (
+            <Link className={styles.kpiLink} href={`/story/${story.id}/chapter/${latestChapter.id}`}>
+              <strong>
+                Chapter {latestChapter.chapter_number}: {latestChapter.title}
+              </strong>
+              <span>Published {formatDate(latestChapter.published_at ?? latestChapter.updated_at)}</span>
+            </Link>
+          ) : (
+            <p className="narrio-muted">No latest chapter yet.</p>
+          )}
+        </SectionCard>
+
+        <SectionCard title="Universe health" description="What readers can currently see.">
+          <InlineMeta>
+            <span>{totalVisibleChapters} visible chapters</span>
+            <span>{draftChapterCount} drafts visible to writer</span>
+            <span>{branches.length} readable timelines</span>
+          </InlineMeta>
+        </SectionCard>
+      </div>
 
       <SectionCard
-        title="Timeline preview"
-        description="Every timeline is a readable path through this story. Open the explorer for the full ForkCraft map."
+        title="Choose a timeline"
+        description="Every timeline is a readable path. Start with the root path, or follow a ForkCraft branch into another version."
       >
-        <div className="narrio-list">
-          {visibleBranches.length ? (
-            visibleBranches.map((branch) => (
-              <Link
-                key={branch.id}
-                href={`/story/${story.id}/branch/${branch.id}`}
-                className="narrio-list-item"
-              >
-                <strong>{branch.name}</strong>
-                <div className="narrio-muted">{branch.description ?? "No description yet."}</div>
+        <div className={styles.timelineGrid}>
+          {branches.length ? (
+            branches.map((card) => (
+              <article key={card.branch.id} className={styles.timelineCard}>
+                <div className={styles.timelineCardTop}>
+                  <span>{timelineLabel(card.branch.branch_type)}</span>
+                  <small>{card.branch.visibility}</small>
+                </div>
+
+                <h3>{card.branch.name}</h3>
+                <p>{card.branch.description ?? "A story path waiting for its own reader rhythm."}</p>
+
                 <InlineMeta>
-                  <span>{branch.branch_type === "main" ? "Root timeline" : `Fork type: ${branch.branch_type}`}</span>
-                  <span>Status: {branch.status}</span>
-                  <span>Visibility: {branch.visibility}</span>
+                  <span>{card.chapterCount} readable chapters</span>
+                  <span>{card.publishedChapterCount} published</span>
+                  {canEdit && card.draftChapterCount ? <span>{card.draftChapterCount} drafts</span> : null}
                 </InlineMeta>
-              </Link>
+
+                {card.firstChapter ? (
+                  <div className={styles.chapterPreview}>
+                    <strong>
+                      Chapter {card.firstChapter.chapter_number}: {card.firstChapter.title}
+                    </strong>
+                    <span>{card.firstChapter.summary ?? "Start this timeline from its first readable chapter."}</span>
+                  </div>
+                ) : (
+                  <div className={styles.chapterPreviewMuted}>No readable chapters in this timeline yet.</div>
+                )}
+
+                <div className={styles.timelineActions}>
+                  <Link className="narrio-button-secondary" href={`/story/${story.id}/branch/${card.branch.id}`}>
+                    Open timeline
+                  </Link>
+                  {card.firstChapter ? (
+                    <Link className="narrio-button" href={`/story/${story.id}/chapter/${card.firstChapter.id}`}>
+                      Start this path
+                    </Link>
+                  ) : null}
+                </div>
+              </article>
             ))
           ) : (
-            <div className="narrio-list-item">No visible timelines yet.</div>
+            <div className="narrio-list-item">No public timelines yet.</div>
           )}
         </div>
       </SectionCard>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { listStoriesByAuthor } from "@narrio/api";
 import { BRAND } from "@narrio/config";
-import { PageHeader, SectionCard, Stack } from "@narrio/ui";
+import { InlineMeta, PageHeader, SectionCard, Stack } from "@narrio/ui";
 import { requireUser } from "../../lib/auth";
 
 export default async function WriteDashboardPage() {
@@ -35,6 +35,7 @@ export default async function WriteDashboardPage() {
           <span>Save a waypoint</span>
           <span>Fork a timeline</span>
           <span>Write your path</span>
+          <span>Control publishing</span>
         </div>
         <div style={{ height: 12 }} />
         <Link className="narrio-button-secondary" href="/onboarding">
@@ -45,16 +46,33 @@ export default async function WriteDashboardPage() {
       <SectionCard title="Draft timelines" description="Each story starts with a main timeline and can grow through ForkCraft.">
         <div className="narrio-list">
           {stories.length ? (
-            stories.map((story) => (
-              <Link
-                key={story.id}
-                className="narrio-list-item"
-                href={`/write/editor/${story.id}/branch/${story.main_branch_id}`}
-              >
-                <strong>{story.title}</strong>
-                <div className="narrio-muted">{story.synopsis ?? "No synopsis yet."}</div>
-              </Link>
-            ))
+            stories.map((story) => {
+              const editorHref = story.main_branch_id
+                ? `/write/editor/${story.id}/branch/${story.main_branch_id}`
+                : `/write/publish/${story.id}`;
+
+              return (
+                <div key={story.id} className="narrio-list-item narrio-split-list-item">
+                  <div className="narrio-list-main">
+                    <strong>{story.title}</strong>
+                    <div className="narrio-muted">{story.synopsis ?? "No synopsis yet."}</div>
+                    <InlineMeta>
+                      <span>{story.status}</span>
+                      <span>{story.visibility}</span>
+                      <span>{story.allow_forks ? "ForkCraft on" : "ForkCraft off"}</span>
+                    </InlineMeta>
+                  </div>
+                  <div className="narrio-mini-actions">
+                    <Link className="narrio-button-secondary" href={editorHref}>
+                      Studio
+                    </Link>
+                    <Link className="narrio-button" href={`/write/publish/${story.id}`}>
+                      Publish Center
+                    </Link>
+                  </div>
+                </div>
+              );
+            })
           ) : (
             <div className="narrio-list-item">
               No stories yet. Start your first story and create a world that can branch.

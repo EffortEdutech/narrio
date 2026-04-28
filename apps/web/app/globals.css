@@ -1053,3 +1053,75 @@ select {
     min-height: auto;
   }
 }
+
+/* Sprint 6.1 — Publish Control Center */
+.narrio-publish-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  border: 1px solid var(--narrio-border);
+  border-radius: 24px;
+  padding: clamp(18px, 3vw, 26px);
+  background:
+    radial-gradient(circle at 100% 0, rgba(108, 92, 231, 0.14), transparent 12rem),
+    rgba(255, 255, 255, 0.8);
+  box-shadow: var(--narrio-shadow-soft);
+}
+
+.narrio-publish-banner.ready {
+  border-color: rgba(52, 211, 153, 0.35);
+  background:
+    radial-gradient(circle at 100% 0, rgba(52, 211, 153, 0.18), transparent 12rem),
+    rgba(255, 255, 255, 0.84);
+}
+
+.narrio-publish-banner.draft {
+  border-color: rgba(245, 185, 66, 0.34);
+  background:
+    radial-gradient(circle at 100% 0, rgba(245, 185, 66, 0.18), transparent 12rem),
+    rgba(255, 255, 255, 0.84);
+}
+
+.narrio-publish-banner h2 {
+  margin: 12px 0 8px;
+  letter-spacing: -0.04em;
+}
+
+.narrio-publish-banner p {
+  margin: 0;
+  color: var(--narrio-body);
+  line-height: 1.65;
+}
+
+.narrio-publish-row-header,
+.narrio-publish-snapshot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.narrio-publish-row-header h3 {
+  margin: 8px 0 8px;
+  letter-spacing: -0.03em;
+}
+
+.narrio-publish-snapshot {
+  align-items: center;
+  padding: 4px 0;
+}
+
+@media (max-width: 760px) {
+  .narrio-publish-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .narrio-publish-banner form,
+  .narrio-publish-banner button,
+  .narrio-publish-row-header .narrio-button-secondary,
+  .narrio-publish-snapshot .narrio-button-secondary {
+    width: 100%;
+  }
+}

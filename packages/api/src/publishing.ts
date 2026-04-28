@@ -1,5 +1,8 @@
 import type { NarrioSupabaseClient } from "@narrio/db";
 
+type StoryVisibility = "public" | "unlisted" | "private";
+type StoryStatus = "draft" | "published" | "archived";
+
 export async function updateStorySettings(
   client: NarrioSupabaseClient,
   input: {
@@ -9,8 +12,8 @@ export async function updateStorySettings(
     synopsis?: string;
     coverUrl?: string;
     allowForks: boolean;
-    status: "draft" | "published" | "archived";
-    visibility: "public" | "unlisted" | "private";
+    status: StoryStatus;
+    visibility: StoryVisibility;
   }
 ) {
   const { data, error } = await client
@@ -32,11 +35,51 @@ export async function updateStorySettings(
   return data;
 }
 
+export async function setStoryPublicationStatus(
+  client: NarrioSupabaseClient,
+  input: {
+    storyId: string;
+    status: Extract<StoryStatus, "draft" | "published">;
+  }
+) {
+  const { data, error } = await client
+    .from("stories")
+    .update({ status: input.status })
+    .eq("id", input.storyId)
+    .select("*")
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function updateStoryPublicationSettings(
+  client: NarrioSupabaseClient,
+  input: {
+    storyId: string;
+    visibility: StoryVisibility;
+    allowForks: boolean;
+  }
+) {
+  const { data, error } = await client
+    .from("stories")
+    .update({
+      visibility: input.visibility,
+      allow_forks: input.allowForks
+    })
+    .eq("id", input.storyId)
+    .select("*")
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
 export async function updateBranchVisibility(
   client: NarrioSupabaseClient,
   input: {
     branchId: string;
-    visibility: "public" | "unlisted" | "private";
+    visibility: StoryVisibility;
     description?: string;
   }
 ) {
@@ -54,7 +97,18 @@ export async function updateBranchVisibility(
   return data;
 }
 
-export async function setChapterPublished(
+export async function updateBranchPublicationSettings(
+  client: NarrioSupabaseClient,
+  input: {
+    branchId: string;
+    visibility: StoryVisibility;
+    description?: string;
+  }
+) {
+  return updateBranchVisibility(client, input);
+}
+
+export async function setChapterPublicationState(
   client: NarrioSupabaseClient,
   input: {
     chapterId: string;
@@ -73,6 +127,16 @@ export async function setChapterPublished(
 
   if (error) throw error;
   return data;
+}
+
+export async function setChapterPublished(
+  client: NarrioSupabaseClient,
+  input: {
+    chapterId: string;
+    isPublished: boolean;
+  }
+) {
+  return setChapterPublicationState(client, input);
 }
 
 export async function listPublishedStoriesByAuthor(client: NarrioSupabaseClient, authorId: string) {

@@ -1,0 +1,18 @@
+{
+  "pack": "narrio_sprint_5_1_timeline_explorer_patch",
+  "sprint": "Sprint 5.1",
+  "roadmap": "Materializing the Dream Plan",
+  "purpose": "Add reader-facing Timeline Explorer / Branch Explorer UI without changing database schema.",
+  "github_write_actions": false,
+  "files": [
+    "apps/web/app/globals.css",
+    "apps/web/app/story/[storyId]/branch/[branchId]/page.tsx",
+    "apps/web/app/story/[storyId]/chapter/[chapterId]/page.tsx",
+    "apps/web/app/story/[storyId]/page.tsx",
+    "apps/web/app/story/[storyId]/timelines/page.tsx",
+    "docs/sprint-5.1-github-issues.md",
+    "docs/sprint-5.1-implementation-note.md",
+    "packages/api/src/index.ts",
+    "packages/api/src/timeline-explorer.ts"
+  ]
+}

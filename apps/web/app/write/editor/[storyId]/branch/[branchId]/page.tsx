@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import {
   getBranchById,
   getBranchesByStoryId,
@@ -9,6 +8,7 @@ import {
   getStoryById,
   getVersionHistory
 } from "@narrio/api";
+import { BRAND } from "@narrio/config";
 import {
   Field,
   PageHeader,
@@ -25,13 +25,6 @@ import {
   restoreVersionAction,
   saveChapterVersionAction
 } from "../../../../actions";
-import { toggleChapterPublishAction } from "../../../../settings_actions";
-import {
-  aiContinueChapterAction,
-  aiRewriteChapterAction,
-  aiSuggestChapterTitleAction,
-  aiSummarizeChapterAction
-} from "../../../../ai_actions";
 
 export default async function BranchEditorPage(props: {
   params: Promise<{ storyId: string; branchId: string }>;
@@ -39,11 +32,9 @@ export default async function BranchEditorPage(props: {
 }) {
   const params = await props.params;
   const searchParams = (await props.searchParams) ?? {};
-  const { supabase, user } = await requireUser();
+  const { supabase } = await requireUser();
 
   const story = await getStoryById(supabase, params.storyId);
-  if (story.author_id !== user.id) redirect("/write");
-
   const branch = await getBranchById(supabase, params.branchId);
   const branches = await getBranchesByStoryId(supabase, params.storyId);
   const chapters = await getChaptersByBranchId(supabase, params.branchId);
@@ -58,20 +49,19 @@ export default async function BranchEditorPage(props: {
   return (
     <Stack>
       <PageHeader
-        eyebrow="Editor"
+        eyebrow="Story Studio"
         title={`${story.title} — ${branch.name}`}
-        description={branch.description ?? "Write, version, branch, publish, and use AI from here."}
+        description={branch.description ?? "Write, version, and fork this timeline into new paths."}
         actions={
           <div className="narrio-nav">
-            <Link href={`/write/settings/${story.id}`}>Story settings</Link>
-            <Link href={`/story/${story.id}/branch/${branch.id}`}>Public branch view</Link>
+            <Link href={`/story/${story.id}/branch/${branch.id}`}>Public timeline view</Link>
           </div>
         }
       />
 
       <TwoColumn>
         <div className="narrio-stack">
-          <SectionCard title="Branch chapters" description="Choose a chapter to edit in this branch.">
+          <SectionCard title="Timeline chapters" description="Choose a chapter to edit in this timeline.">
             <div className="narrio-list">
               {chapters.length ? (
                 chapters.map((chapter) => (
@@ -84,39 +74,36 @@ export default async function BranchEditorPage(props: {
                       Chapter {chapter.chapter_number}: {chapter.title}
                     </strong>
                     <div className="narrio-muted">{chapter.summary ?? "No summary yet."}</div>
-                    <div className="narrio-muted">
-                      {chapter.is_published ? "Published" : "Draft"} · Branch {branch.visibility}
-                    </div>
                   </Link>
                 ))
               ) : (
-                <div className="narrio-list-item">No chapters in this branch yet.</div>
+                <div className="narrio-list-item">No chapters in this timeline yet.</div>
               )}
             </div>
           </SectionCard>
 
-          <SectionCard title="Create chapter" description="Adds a new chapter with an initial version.">
+          <SectionCard title="Add chapter" description="Adds a new chapter with an initial version.">
             <form action={createChapterAction} className="narrio-form">
               <input type="hidden" name="storyId" value={story.id} />
               <input type="hidden" name="branchId" value={branch.id} />
               <Field label="Chapter title" name="title" placeholder="Arrival at the hidden harbor" />
               <TextAreaField label="Summary" name="summary" rows={3} placeholder="Optional chapter summary..." />
-              <PrimaryButton>Create chapter</PrimaryButton>
+              <PrimaryButton>Add chapter</PrimaryButton>
             </form>
           </SectionCard>
 
-          <SectionCard title="Create branch" description="Clone the current branch state into a new path.">
+          <SectionCard title="Fork this timeline" description={`Create a new path with ${BRAND.engine}.`}>
             <form action={createBranchAction} className="narrio-form">
               <input type="hidden" name="storyId" value={story.id} />
               <input type="hidden" name="sourceBranchId" value={branch.id} />
-              <Field label="Branch name" name="name" placeholder="What if the captain never returned?" />
-              <Field label="Branch slug" name="slug" placeholder="captain-never-returned" />
-              <TextAreaField label="Description" name="description" rows={3} placeholder="Explain this alternate path..." />
-              <PrimaryButton>Create branch from this branch</PrimaryButton>
+              <Field label="New timeline name" name="name" placeholder="What if the captain never returned?" />
+              <Field label="Timeline slug" name="slug" placeholder="captain-never-returned" />
+              <TextAreaField label="Why is this timeline different?" name="description" rows={3} placeholder="Explain this alternate path..." />
+              <PrimaryButton>Create fork</PrimaryButton>
             </form>
           </SectionCard>
 
-          <SectionCard title="Story branches" description="Navigate between sibling branches.">
+          <SectionCard title="Story timelines" description="Navigate between alternate paths in this story.">
             <div className="narrio-list">
               {branches.map((branchItem) => (
                 <Link
@@ -125,10 +112,7 @@ export default async function BranchEditorPage(props: {
                   className="narrio-list-item"
                 >
                   <strong>{branchItem.name}</strong>
-                  <div className="narrio-muted">
-                    {branchItem.description ?? "No description yet."}
-                  </div>
-                  <div className="narrio-muted">Visibility: {branchItem.visibility}</div>
+                  <div className="narrio-muted">{branchItem.description ?? "No description yet."}</div>
                 </Link>
               ))}
             </div>
@@ -140,24 +124,8 @@ export default async function BranchEditorPage(props: {
             <>
               <SectionCard
                 title={`Editing Chapter ${selectedChapter.chapter_number}`}
-                description="Each save creates a new chapter version and marks it current."
+                description="Each save creates a new version and marks it current."
               >
-                <div className="narrio-nav" style={{ marginBottom: 14 }}>
-                  <form action={toggleChapterPublishAction}>
-                    <input type="hidden" name="storyId" value={story.id} />
-                    <input type="hidden" name="branchId" value={branch.id} />
-                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
-                    <input
-                      type="hidden"
-                      name="nextPublishedState"
-                      value={selectedChapter.is_published ? "false" : "true"}
-                    />
-                    <PrimaryButton>
-                      {selectedChapter.is_published ? "Unpublish chapter" : "Publish chapter"}
-                    </PrimaryButton>
-                  </form>
-                </div>
-
                 <form action={saveChapterVersionAction} className="narrio-form">
                   <input type="hidden" name="storyId" value={story.id} />
                   <input type="hidden" name="branchId" value={branch.id} />
@@ -171,60 +139,13 @@ export default async function BranchEditorPage(props: {
                     defaultValue={currentVersion.content_md}
                   />
                   <Field
-                    label="Commit message"
+                    label="What changed?"
                     name="commitMessage"
                     defaultValue={currentVersion.commit_message ?? ""}
                     placeholder="Expanded tension in the harbor scene"
                   />
-                  <PrimaryButton>Save new version</PrimaryButton>
+                  <PrimaryButton>Save version</PrimaryButton>
                 </form>
-              </SectionCard>
-
-              <SectionCard
-                title="AI writer assist"
-                description="These actions create new chapter versions. Without OPENAI_API_KEY, mock mode is used."
-              >
-                <div className="narrio-list">
-                  <form action={aiContinueChapterAction} className="narrio-list-item">
-                    <input type="hidden" name="storyId" value={story.id} />
-                    <input type="hidden" name="branchId" value={branch.id} />
-                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
-                    <strong>AI continue chapter</strong>
-                    <div className="narrio-muted">Appends a continuation to the current chapter content.</div>
-                    <div style={{ height: 12 }} />
-                    <PrimaryButton>Run continue</PrimaryButton>
-                  </form>
-
-                  <form action={aiRewriteChapterAction} className="narrio-list-item">
-                    <input type="hidden" name="storyId" value={story.id} />
-                    <input type="hidden" name="branchId" value={branch.id} />
-                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
-                    <strong>AI rewrite chapter</strong>
-                    <div className="narrio-muted">Creates a rewritten version of the full chapter.</div>
-                    <div style={{ height: 12 }} />
-                    <PrimaryButton>Run rewrite</PrimaryButton>
-                  </form>
-
-                  <form action={aiSummarizeChapterAction} className="narrio-list-item">
-                    <input type="hidden" name="storyId" value={story.id} />
-                    <input type="hidden" name="branchId" value={branch.id} />
-                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
-                    <strong>AI summarize chapter</strong>
-                    <div className="narrio-muted">Generates a better summary and saves it as a new version.</div>
-                    <div style={{ height: 12 }} />
-                    <PrimaryButton>Run summarize</PrimaryButton>
-                  </form>
-
-                  <form action={aiSuggestChapterTitleAction} className="narrio-list-item">
-                    <input type="hidden" name="storyId" value={story.id} />
-                    <input type="hidden" name="branchId" value={branch.id} />
-                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
-                    <strong>AI suggest title</strong>
-                    <div className="narrio-muted">Suggests a stronger chapter title and saves it as a new version.</div>
-                    <div style={{ height: 12 }} />
-                    <PrimaryButton>Run title suggestion</PrimaryButton>
-                  </form>
-                </div>
               </SectionCard>
 
               <SectionCard
@@ -238,7 +159,7 @@ export default async function BranchEditorPage(props: {
                         Version {version.version_number} {version.is_current ? "· current" : ""}
                       </strong>
                       <div className="narrio-muted">
-                        {version.commit_message ?? "No commit message"} · {version.source}
+                        {version.commit_message ?? "No save note"} · {version.source}
                       </div>
                       <div className="narrio-divider" />
                       <div className="narrio-muted">{version.excerpt ?? "No excerpt."}</div>
@@ -248,7 +169,7 @@ export default async function BranchEditorPage(props: {
                           <input type="hidden" name="branchId" value={branch.id} />
                           <input type="hidden" name="chapterId" value={selectedChapter.id} />
                           <input type="hidden" name="versionId" value={version.id} />
-                          <PrimaryButton>Restore from this version</PrimaryButton>
+                          <PrimaryButton>Restore this version</PrimaryButton>
                         </form>
                       </div>
                     </div>
@@ -259,7 +180,7 @@ export default async function BranchEditorPage(props: {
           ) : (
             <SectionCard
               title="No chapter selected"
-              description="Create the first chapter in this branch to start writing."
+              description="Add the first chapter in this timeline to start writing."
             />
           )}
         </div>

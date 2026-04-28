@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@narrio/config";
 import { PageHeader, SectionCard, Stack } from "@narrio/ui";
 
 export default function HomePage() {
@@ -6,16 +7,16 @@ export default function HomePage() {
     <Stack>
       <div className="narrio-hero">
         <PageHeader
-          eyebrow="Sprint 2"
-          title="Branch-first storytelling now supports publishing and reader feedback."
-          description="Create stories, publish chapters, restore drafts, branch into alternate paths, and let readers follow, bookmark, and like."
+          eyebrow={`Powered by ${BRAND.engine}`}
+          title={`Welcome to ${BRAND.name}`}
+          description={`${BRAND.tagline} Create stories, fork alternate paths, and explore timelines shaped by writers and readers.`}
           actions={
             <div className="narrio-nav">
               <Link className="narrio-button" href="/write">
-                Open Writer Area
+                Enter Writer Studio
               </Link>
               <Link className="narrio-button-secondary" href="/library">
-                Browse Library
+                Explore Library
               </Link>
             </div>
           }
@@ -23,14 +24,14 @@ export default function HomePage() {
       </div>
 
       <SectionCard
-        title="Narrio philosophy"
-        description="Simple Git-style branching, not a visual graph-first editor."
+        title="How ForkCraft works"
+        description="Stories begin with one path. ForkCraft lets them grow into many timelines."
       >
         <div className="narrio-list">
-          <div className="narrio-list-item">Stories own many branches.</div>
-          <div className="narrio-list-item">Branches own many chapters.</div>
-          <div className="narrio-list-item">Chapters own many versions.</div>
-          <div className="narrio-list-item">Writers can restore a version or branch into a new path.</div>
+          <div className="narrio-list-item">A story can hold many timelines.</div>
+          <div className="narrio-list-item">Each timeline contains chapters.</div>
+          <div className="narrio-list-item">Each chapter keeps its own version history.</div>
+          <div className="narrio-list-item">Writers can restore older versions or fork a new path.</div>
         </div>
       </SectionCard>
     </Stack>

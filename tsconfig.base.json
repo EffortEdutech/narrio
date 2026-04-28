@@ -10,6 +10,7 @@
     "paths": {
       "@narrio/api": ["packages/api/src/index.ts"],
       "@narrio/ai": ["packages/ai/src/index.ts"],
+      "@narrio/config": ["packages/config/src/index.ts"],
       "@narrio/db": ["packages/db/src/index.ts"],
       "@narrio/ui": ["packages/ui/src/index.tsx"]
     },

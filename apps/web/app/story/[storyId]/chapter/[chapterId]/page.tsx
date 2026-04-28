@@ -48,33 +48,41 @@ export default async function ChapterReaderPage(props: {
         title={`${story.title} — Chapter ${chapter.chapter_number}`}
         description={chapter.title}
         actions={
-          user ? (
-            <div className="narrio-nav">
-              <form action={toggleBookmarkAction}>
-                <input type="hidden" name="chapterId" value={chapter.id} />
-                <input type="hidden" name="tag" value="favorite" />
-                <input type="hidden" name="redirectPath" value={`/story/${story.id}/chapter/${chapter.id}`} />
-                <PrimaryButton>{bookmarked ? "Remove bookmark" : "Bookmark chapter"}</PrimaryButton>
-              </form>
-              <form action={toggleLikeAction}>
-                <input type="hidden" name="chapterVersionId" value={currentVersion.id} />
-                <input type="hidden" name="redirectPath" value={`/story/${story.id}/chapter/${chapter.id}`} />
-                <PrimaryButton>{liked ? "Unlike version" : "Like current version"}</PrimaryButton>
-              </form>
-            </div>
-          ) : (
-            <Link className="narrio-button" href="/signin">
-              Sign in for reader actions
+          <div className="narrio-nav">
+            <Link className="narrio-button-secondary" href={`/story/${story.id}/branch/${chapter.branch_id}`}>
+              Back to timeline
             </Link>
-          )
+            <Link className="narrio-button-secondary" href={`/story/${story.id}/timelines`}>
+              Explore timelines
+            </Link>
+            {user ? (
+              <>
+                <form action={toggleBookmarkAction}>
+                  <input type="hidden" name="chapterId" value={chapter.id} />
+                  <input type="hidden" name="tag" value="favorite" />
+                  <input type="hidden" name="redirectPath" value={`/story/${story.id}/chapter/${chapter.id}`} />
+                  <PrimaryButton>{bookmarked ? "Remove bookmark" : "Bookmark chapter"}</PrimaryButton>
+                </form>
+                <form action={toggleLikeAction}>
+                  <input type="hidden" name="chapterVersionId" value={currentVersion.id} />
+                  <input type="hidden" name="redirectPath" value={`/story/${story.id}/chapter/${chapter.id}`} />
+                  <PrimaryButton>{liked ? "Unlike version" : "Like current version"}</PrimaryButton>
+                </form>
+              </>
+            ) : (
+              <Link className="narrio-button" href="/signin">
+                Sign in for reader actions
+              </Link>
+            )}
+          </div>
         }
       />
 
-      <SectionCard title="Current version" description="Reader sees the current version content.">
+      <SectionCard title="Current version" description="You are reading the latest saved version of this chapter.">
         <InlineMeta>
           <span>Version {currentVersion.version_number}</span>
           <span>Source: {currentVersion.source}</span>
-          <span>Commit: {currentVersion.commit_message ?? "No commit message"}</span>
+          <span>Save note: {currentVersion.commit_message ?? "No save note"}</span>
         </InlineMeta>
         <div className="narrio-code" style={{ marginTop: 16 }}>
           {currentVersion.content_md}

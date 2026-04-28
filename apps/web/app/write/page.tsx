@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { listStoriesByAuthor } from "@narrio/api";
+import { BRAND } from "@narrio/config";
 import { PageHeader, SectionCard, Stack } from "@narrio/ui";
 import { requireUser } from "../../lib/auth";
 
@@ -10,34 +11,32 @@ export default async function WriteDashboardPage() {
   return (
     <Stack>
       <PageHeader
-        eyebrow="Sprint 3"
-        title="My stories"
-        description="Write, publish, and manage story visibility from one dashboard."
+        eyebrow={BRAND.engine}
+        title={BRAND.writerStudioTitle}
+        description={BRAND.writerStudioDescription}
         actions={
           <Link className="narrio-button" href="/write/new">
-            Create story
+            Start a story
           </Link>
         }
       />
 
-      <SectionCard title="Your draft space" description="Each story automatically gets a main branch.">
+      <SectionCard title="Draft timelines" description="Each story starts with a main timeline and can grow through ForkCraft.">
         <div className="narrio-list">
           {stories.length ? (
             stories.map((story) => (
-              <div key={story.id} className="narrio-list-item">
+              <Link
+                key={story.id}
+                className="narrio-list-item"
+                href={`/write/editor/${story.id}/branch/${story.main_branch_id}`}
+              >
                 <strong>{story.title}</strong>
                 <div className="narrio-muted">{story.synopsis ?? "No synopsis yet."}</div>
-                <div style={{ height: 10 }} />
-                <div className="narrio-nav">
-                  <Link href={`/write/editor/${story.id}/branch/${story.main_branch_id}`}>Open editor</Link>
-                  <Link href={`/write/settings/${story.id}`}>Settings</Link>
-                  <Link href={`/story/${story.id}`}>Public view</Link>
-                </div>
-              </div>
+              </Link>
             ))
           ) : (
             <div className="narrio-list-item">
-              No stories yet. Create your first story to start the writer workflow.
+              No stories yet. Start your first story and create a world that can branch.
             </div>
           )}
         </div>

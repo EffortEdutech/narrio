@@ -186,8 +186,75 @@ a {
   margin: 10px 0;
 }
 
+.narrio-timeline-map {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.narrio-timeline-node {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 12px;
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.narrio-timeline-node:hover {
+  transform: translateY(-1px);
+}
+
+.narrio-timeline-rail {
+  width: 10px;
+  min-height: 100%;
+  border-left: 2px solid #334155;
+  border-bottom: 2px solid #334155;
+  border-bottom-left-radius: 12px;
+  margin-top: 16px;
+}
+
+.narrio-timeline-node.main .narrio-timeline-rail {
+  border-left-color: #64748b;
+  border-bottom-color: #64748b;
+}
+
+.narrio-timeline-content {
+  border: 1px solid #27334a;
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.narrio-timeline-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.narrio-timeline-header h3 {
+  margin: 8px 0 0;
+}
+
+.narrio-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #334155;
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: #e2e8f0;
+  background: #111827;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 @media (max-width: 900px) {
   .narrio-two-column {
     grid-template-columns: 1fr;
+  }
+
+  .narrio-timeline-node {
+    margin-left: 0 !important;
   }
 }

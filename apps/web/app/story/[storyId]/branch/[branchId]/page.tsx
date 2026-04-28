@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getBranchById, getChaptersByBranchId, getStoryById } from "@narrio/api";
-import { PageHeader, SectionCard, Stack } from "@narrio/ui";
+import { InlineMeta, PageHeader, SectionCard, Stack } from "@narrio/ui";
 import { createClient } from "../../../../../lib/supabase/server";
 
 export default async function StoryBranchPage(props: {
@@ -13,20 +13,40 @@ export default async function StoryBranchPage(props: {
   const branch = await getBranchById(supabase, params.branchId);
   const chapters = await getChaptersByBranchId(supabase, params.branchId);
 
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
   return (
     <Stack>
       <PageHeader
-        eyebrow="Branch"
+        eyebrow="Timeline"
         title={`${story.title} — ${branch.name}`}
-        description={branch.description ?? "Branch reader view."}
+        description={branch.description ?? "A readable path through this story."}
         actions={
-          <Link className="narrio-button" href={`/write/editor/${story.id}/branch/${branch.id}`}>
-            Open Branch Editor
-          </Link>
+          <div className="narrio-nav">
+            <Link className="narrio-button-secondary" href={`/story/${story.id}/timelines`}>
+              Explore timelines
+            </Link>
+            {user?.id === story.author_id ? (
+              <Link className="narrio-button" href={`/write/editor/${story.id}/branch/${branch.id}`}>
+                Open in Story Studio
+              </Link>
+            ) : null}
+          </div>
         }
       />
 
-      <SectionCard title="Chapter list" description="Published and draft visibility is controlled by RLS.">
+      <SectionCard title="Timeline details" description="ForkCraft information for this story path.">
+        <InlineMeta>
+          <span>{branch.branch_type === "main" ? "Root timeline" : `Fork type: ${branch.branch_type}`}</span>
+          <span>Status: {branch.status}</span>
+          <span>Visibility: {branch.visibility}</span>
+          <span>Parent: {branch.parent_branch_id ?? "None"}</span>
+        </InlineMeta>
+      </SectionCard>
+
+      <SectionCard title="Timeline chapters" description="Choose a chapter and continue reading this path.">
         <div className="narrio-list">
           {chapters.length ? (
             chapters.map((chapter) => (
@@ -39,10 +59,14 @@ export default async function StoryBranchPage(props: {
                   Chapter {chapter.chapter_number}: {chapter.title}
                 </strong>
                 <div className="narrio-muted">{chapter.summary ?? "No summary yet."}</div>
+                <InlineMeta>
+                  <span>{chapter.is_published ? "Published" : "Draft"}</span>
+                  <span>Updated {new Date(chapter.updated_at).toLocaleDateString()}</span>
+                </InlineMeta>
               </Link>
             ))
           ) : (
-            <div className="narrio-list-item">No chapters in this branch yet.</div>
+            <div className="narrio-list-item">No chapters in this timeline yet.</div>
           )}
         </div>
       </SectionCard>

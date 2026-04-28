@@ -14,14 +14,19 @@ export default function RootLayout(props: { children: ReactNode }) {
       <body>
         <AppShell>
           <header className="narrio-topbar">
-            <div className="narrio-brand">Narrio</div>
-            <nav className="narrio-nav">
-              <Link href="/">Home</Link>
+            <Link className="narrio-logo" href="/" aria-label="Narrio home">
+              <span className="narrio-brand-mark">N</span>
+              <span className="narrio-brand-word">
+                <span>Narrio</span>
+                <span className="narrio-brand-subtitle">ForkCraft Engine</span>
+              </span>
+            </Link>
+            <nav className="narrio-nav" aria-label="Main navigation">
               <Link href="/onboarding">Start Here</Link>
-              <Link href="/library">Library</Link>
+              <Link href="/library">Explore</Link>
               <Link href="/write">Write</Link>
               <Link href="/write/bookmarks">Waypoints</Link>
-              <Link href="/activity">Activity</Link>
+              <Link href="/activity">Pulse</Link>
               <Link href="/signin">Sign in</Link>
             </nav>
           </header>

@@ -1,18 +1,19 @@
 {
-  "pack": "narrio_sprint_5_1_timeline_explorer_patch",
-  "sprint": "Sprint 5.1",
-  "roadmap": "Materializing the Dream Plan",
-  "purpose": "Add reader-facing Timeline Explorer / Branch Explorer UI without changing database schema.",
-  "github_write_actions": false,
+  "pack": "narrio_sprint_6_0_stabilization_checkpoint_pack",
+  "type": "docs-and-qa-only",
+  "created_at": "2026-04-28T16:28:47.045064Z",
+  "changes_code": false,
+  "changes_database": false,
+  "changes_dependencies": false,
   "files": [
-    "apps/web/app/globals.css",
-    "apps/web/app/story/[storyId]/branch/[branchId]/page.tsx",
-    "apps/web/app/story/[storyId]/chapter/[chapterId]/page.tsx",
-    "apps/web/app/story/[storyId]/page.tsx",
-    "apps/web/app/story/[storyId]/timelines/page.tsx",
-    "docs/sprint-5.1-github-issues.md",
-    "docs/sprint-5.1-implementation-note.md",
-    "packages/api/src/index.ts",
-    "packages/api/src/timeline-explorer.ts"
+    "SPRINT_6_0_README.md",
+    "docs/sprint-6.0-bug-triage-template.md",
+    "docs/sprint-6.0-local-command-checklist.md",
+    "docs/sprint-6.0-manual-qa-matrix.md",
+    "docs/sprint-6.0-readme-append-snippet.md",
+    "docs/sprint-6.0-release-notes.md",
+    "docs/sprint-6.0-status-register.md",
+    "docs/sprint-6.1-preview-publish-control-center.md",
+    "scripts/qa-sprint-6-0.ps1"
   ]
 }

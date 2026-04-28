@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { listPublishedStories, listStoriesByAuthor } from "@narrio/api";
 import { BRAND } from "@narrio/config";
-import { PageHeader, SectionCard, Stack } from "@narrio/ui";
+import { SectionCard, Stack } from "@narrio/ui";
 import { createClient } from "../../lib/supabase/server";
 
 export default async function OnboardingPage() {
@@ -25,23 +25,58 @@ export default async function OnboardingPage() {
 
   return (
     <Stack>
-      <div className="narrio-hero narrio-onboarding-hero">
-        <PageHeader
-          eyebrow={`${BRAND.engine} first run`}
-          title="Start Narrio in 60 seconds"
-          description="Learn the core loop: read a chapter, explore timelines, save a waypoint, fork a path, then write your own version."
-          actions={
-            <div className="narrio-nav">
+      <section className="narrio-hero narrio-onboarding-hero" aria-labelledby="onboarding-title">
+        <div className="narrio-hero-grid">
+          <div className="narrio-hero-copy">
+            <div className="narrio-eyebrow">{BRAND.engine} first run</div>
+            <h1 id="onboarding-title">Start Narrio in 60 seconds.</h1>
+            <p>
+              Learn the core loop: read a chapter, explore timelines, save a waypoint, fork a path,
+              then write your own version.
+            </p>
+            <div className="narrio-hero-actions">
               <Link className="narrio-button" href={featuredStoryHref}>
                 Start reading
               </Link>
-              <Link className="narrio-button-secondary" href="/write">
-                Open Story Studio
+              <Link className="narrio-button-secondary" href={writerHref}>
+                Start ForkCraft
               </Link>
             </div>
-          }
-        />
-      </div>
+          </div>
+
+          <div className="narrio-hero-visual" aria-hidden="true">
+            <div className="narrio-screen-frame">
+              <div className="narrio-screen-top">
+                <span>Narrio path</span>
+                <span>05 steps</span>
+              </div>
+              <div className="narrio-screen-card">
+                <strong>📖 Read one chapter</strong>
+                <span className="narrio-muted">Feel the story before changing it.</span>
+              </div>
+              <div className="narrio-screen-card">
+                <strong>🌳 Explore timelines</strong>
+                <span className="narrio-muted">See how one choice becomes many paths.</span>
+              </div>
+              <div className="narrio-screen-card">
+                <strong>✨ Start ForkCraft</strong>
+                <span className="narrio-muted">Create a private draft timeline.</span>
+              </div>
+              <div className="narrio-story-tree-visual">
+                <div className="narrio-tree">
+                  <i className="l1" />
+                  <i className="l2" />
+                  <i className="l3" />
+                  <span className="n1">1</span>
+                  <span className="n2">2</span>
+                  <span className="n3">3A</span>
+                  <span className="n4">3B</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="narrio-onboarding-path" aria-label="Narrio first-run path">
         <OnboardingStep
@@ -81,6 +116,19 @@ export default async function OnboardingPage() {
         />
       </section>
 
+      <div className="narrio-choice-grid">
+        <Link className="narrio-choice-card" href="/library">
+          <div className="narrio-choice-icon">📖</div>
+          <strong>Explore universes</strong>
+          <p className="narrio-muted">Read stories and discover the timelines already released.</p>
+        </Link>
+        <Link className="narrio-choice-card" href={writerHref}>
+          <div className="narrio-choice-icon">✍️</div>
+          <strong>Start ForkCraft</strong>
+          <p className="narrio-muted">Create your own story or continue from a fork point.</p>
+        </Link>
+      </div>
+
       <div className="narrio-two-column">
         <SectionCard title="Reader loop" description="Use this path when you want to understand Narrio as a reader first.">
           <div className="narrio-list">
@@ -118,8 +166,8 @@ export default async function OnboardingPage() {
       </div>
 
       <SectionCard
-        title="What to test after applying this sprint"
-        description="This onboarding page links together the Sprint 5 features you have already tested."
+        title="What to test after applying this visual sprint"
+        description="The design layer should make the Sprint 5 features feel like one coherent product journey."
       >
         <div className="narrio-onboarding-mini">
           <span>Timeline Explorer</span>

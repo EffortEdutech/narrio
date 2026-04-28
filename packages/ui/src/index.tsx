@@ -18,7 +18,7 @@ export function PageHeader(props: {
           <h1>{props.title}</h1>
           {props.description ? <p className="narrio-muted">{props.description}</p> : null}
         </div>
-        {props.actions ? <div>{props.actions}</div> : null}
+        {props.actions ? <div className="narrio-page-actions">{props.actions}</div> : null}
       </div>
     </div>
   );

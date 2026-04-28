@@ -12,7 +12,10 @@ export default function HomePage() {
           description={`${BRAND.tagline} Create stories, fork alternate paths, and explore timelines shaped by writers and readers.`}
           actions={
             <div className="narrio-nav">
-              <Link className="narrio-button" href="/write">
+              <Link className="narrio-button" href="/onboarding">
+                Start in 60 seconds
+              </Link>
+              <Link className="narrio-button-secondary" href="/write">
                 Enter Writer Studio
               </Link>
               <Link className="narrio-button-secondary" href="/library">
@@ -33,6 +36,15 @@ export default function HomePage() {
           <div className="narrio-list-item">Each chapter keeps its own version history.</div>
           <div className="narrio-list-item">Writers can restore older versions or fork a new path.</div>
         </div>
+      </SectionCard>
+
+      <SectionCard
+        title="New to Narrio?"
+        description="Use the first-run guide to understand the read, save, fork, and write loop before exploring deeper."
+      >
+        <Link className="narrio-button-secondary" href="/onboarding">
+          Open the 60-second guide
+        </Link>
       </SectionCard>
     </Stack>
   );

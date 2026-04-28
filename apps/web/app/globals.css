@@ -309,3 +309,214 @@ a {
     justify-content: flex-start;
   }
 }
+
+.narrio-tag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.narrio-mini-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.narrio-mini-form button {
+  width: 100%;
+}
+
+.narrio-bookmark-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.narrio-badge-active {
+  border-color: #94a3b8;
+  background: #1e293b;
+}
+
+.narrio-bookmark-form {
+  border: 1px solid #27334a;
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.narrio-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #cbd5e1;
+}
+
+.narrio-checkbox input {
+  margin-top: 3px;
+}
+
+.narrio-bookmark-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.narrio-bookmark-delete {
+  min-width: 120px;
+}
+
+@media (max-width: 700px) {
+  .narrio-bookmark-row {
+    flex-direction: column;
+  }
+
+  .narrio-bookmark-delete {
+    width: 100%;
+  }
+}
+
+.narrio-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.narrio-stat-card {
+  border: 1px solid #27334a;
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.narrio-stat-card strong {
+  font-size: 1.8rem;
+}
+
+.narrio-stat-card span {
+  color: #94a3b8;
+}
+
+.narrio-activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.narrio-activity-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  border: 1px solid #27334a;
+  background: #0f172a;
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.narrio-activity-marker {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #334155;
+  border-radius: 999px;
+  background: #111827;
+}
+
+.narrio-activity-body {
+  min-width: 0;
+}
+
+.narrio-activity-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.narrio-activity-heading h3 {
+  margin: 8px 0 0;
+}
+
+.narrio-activity-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .narrio-activity-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.narrio-onboarding-hero {
+  margin-bottom: 4px;
+}
+
+.narrio-onboarding-path {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.narrio-onboarding-step {
+  border: 1px solid #27334a;
+  background: #0f172a;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 230px;
+}
+
+.narrio-onboarding-step h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.narrio-onboarding-step p {
+  flex: 1;
+}
+
+.narrio-onboarding-number {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid #334155;
+  background: #111827;
+  color: #e2e8f0;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.narrio-onboarding-mini {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.narrio-onboarding-mini span {
+  border: 1px solid #334155;
+  background: #111827;
+  color: #cbd5e1;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 640px) {
+  .narrio-onboarding-step {
+    min-height: auto;
+  }
+}

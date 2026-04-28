@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Narrio",
-  description: "Branch-first social storytelling"
+  description: "Where stories branch forever."
 };
 
 export default function RootLayout(props: { children: ReactNode }) {
@@ -16,13 +16,14 @@ export default function RootLayout(props: { children: ReactNode }) {
           <header className="narrio-topbar">
             <div className="narrio-brand">Narrio</div>
             <nav className="narrio-nav">
-  <Link href="/">Home</Link>
-  <Link href="/library">Library</Link>
-  <Link href="/write">Write</Link>
-  <Link href="/write/bookmarks">Bookmarks</Link>
-  <Link href="/signin">Sign in</Link>
-</nav>
-
+              <Link href="/">Home</Link>
+              <Link href="/onboarding">Start Here</Link>
+              <Link href="/library">Library</Link>
+              <Link href="/write">Write</Link>
+              <Link href="/write/bookmarks">Waypoints</Link>
+              <Link href="/activity">Activity</Link>
+              <Link href="/signin">Sign in</Link>
+            </nav>
           </header>
           {props.children}
         </AppShell>

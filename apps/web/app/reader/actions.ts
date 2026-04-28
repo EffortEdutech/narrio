@@ -2,12 +2,28 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { toggleBookmarkChapter, toggleFollowStory, toggleLikeVersion } from "@narrio/api";
+import {
+  deleteBookmarkById,
+  saveBookmarkChapter,
+  toggleBookmarkChapter,
+  toggleFollowStory,
+  toggleLikeVersion
+} from "@narrio/api";
 import { requireUser } from "../../lib/auth";
 
+function formString(formData: FormData, name: string, fallback = "") {
+  const value = formData.get(name);
+  return typeof value === "string" && value.trim() ? value.trim() : fallback;
+}
+
+function formBoolean(formData: FormData, name: string) {
+  const value = formData.get(name);
+  return value === "on" || value === "true" || value === "1";
+}
+
 export async function toggleFollowAction(formData: FormData) {
-  const storyId = String(formData.get("storyId"));
-  const redirectPath = String(formData.get("redirectPath") ?? `/story/${storyId}`);
+  const storyId = formString(formData, "storyId");
+  const redirectPath = formString(formData, "redirectPath", `/story/${storyId}`);
 
   const { supabase, user } = await requireUser();
   await toggleFollowStory(supabase, { userId: user.id, storyId });
@@ -18,12 +34,47 @@ export async function toggleFollowAction(formData: FormData) {
 }
 
 export async function toggleBookmarkAction(formData: FormData) {
-  const chapterId = String(formData.get("chapterId"));
-  const tag = String(formData.get("tag") ?? "favorite");
-  const redirectPath = String(formData.get("redirectPath") ?? "/write/bookmarks");
+  const chapterId = formString(formData, "chapterId");
+  const tag = formString(formData, "tag", "favorite");
+  const redirectPath = formString(formData, "redirectPath", "/write/bookmarks");
 
   const { supabase, user } = await requireUser();
-  await toggleBookmarkChapter(supabase, { userId: user.id, chapterId, tag });
+  await toggleBookmarkChapter(supabase, {
+    userId: user.id,
+    chapterId,
+    tag,
+    isPublic: formBoolean(formData, "isPublic")
+  });
+
+  revalidatePath("/write/bookmarks");
+  revalidatePath(redirectPath);
+  redirect(redirectPath);
+}
+
+export async function saveBookmarkAction(formData: FormData) {
+  const chapterId = formString(formData, "chapterId");
+  const tag = formString(formData, "tag", "favorite");
+  const redirectPath = formString(formData, "redirectPath", "/write/bookmarks");
+
+  const { supabase, user } = await requireUser();
+  await saveBookmarkChapter(supabase, {
+    userId: user.id,
+    chapterId,
+    tag,
+    isPublic: formBoolean(formData, "isPublic")
+  });
+
+  revalidatePath("/write/bookmarks");
+  revalidatePath(redirectPath);
+  redirect(redirectPath);
+}
+
+export async function deleteBookmarkAction(formData: FormData) {
+  const bookmarkId = formString(formData, "bookmarkId");
+  const redirectPath = formString(formData, "redirectPath", "/write/bookmarks");
+
+  const { supabase, user } = await requireUser();
+  await deleteBookmarkById(supabase, { userId: user.id, bookmarkId });
 
   revalidatePath("/write/bookmarks");
   revalidatePath(redirectPath);
@@ -31,8 +82,8 @@ export async function toggleBookmarkAction(formData: FormData) {
 }
 
 export async function toggleLikeAction(formData: FormData) {
-  const chapterVersionId = String(formData.get("chapterVersionId"));
-  const redirectPath = String(formData.get("redirectPath") ?? "/library");
+  const chapterVersionId = formString(formData, "chapterVersionId");
+  const redirectPath = formString(formData, "redirectPath", "/library");
 
   const { supabase, user } = await requireUser();
   await toggleLikeVersion(supabase, { userId: user.id, chapterVersionId });

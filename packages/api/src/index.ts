@@ -7,3 +7,4 @@ export * from "./social";
 export * from "./comments";
 export * from "./timeline-explorer";
 export * from "./chapter-forks";
+export * from "./activity";

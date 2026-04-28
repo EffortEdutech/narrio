@@ -1,14 +1,16 @@
 import Link from "next/link";
 import {
+  BOOKMARK_TAG_PRESETS,
   getBranchById,
   getChapterById,
   getCurrentVersionByChapterId,
   getStoryById,
-  hasBookmarkedChapter,
   hasLikedVersion,
+  listBookmarkTagsForChapter,
   listCommentsByChapterId
 } from "@narrio/api";
 import {
+  Field,
   InlineMeta,
   PageHeader,
   PrimaryButton,
@@ -17,7 +19,7 @@ import {
   TextAreaField
 } from "@narrio/ui";
 import { createClient } from "../../../../../lib/supabase/server";
-import { toggleBookmarkAction, toggleLikeAction } from "../../../../reader/actions";
+import { saveBookmarkAction, toggleBookmarkAction, toggleLikeAction } from "../../../../reader/actions";
 import { createCommentAction } from "../../../../reader/comment_actions";
 
 export default async function ChapterReaderPage(props: {
@@ -36,14 +38,15 @@ export default async function ChapterReaderPage(props: {
     data: { user }
   } = await supabase.auth.getUser();
 
-  const bookmarked = user
-    ? await hasBookmarkedChapter(supabase, { userId: user.id, chapterId: chapter.id, tag: "favorite" })
-    : false;
+  const bookmarkTags = user
+    ? await listBookmarkTagsForChapter(supabase, { userId: user.id, chapterId: chapter.id })
+    : [];
   const liked = user
     ? await hasLikedVersion(supabase, { userId: user.id, chapterVersionId: currentVersion.id })
     : false;
   const canEditTimeline = user?.id === story.author_id || user?.id === branch.created_by;
   const canForkChapter = Boolean(story.allow_forks) || canEditTimeline;
+  const redirectPath = `/story/${story.id}/chapter/${chapter.id}`;
 
   return (
     <Stack>
@@ -71,15 +74,12 @@ export default async function ChapterReaderPage(props: {
             ) : null}
             {user ? (
               <>
-                <form action={toggleBookmarkAction}>
-                  <input type="hidden" name="chapterId" value={chapter.id} />
-                  <input type="hidden" name="tag" value="favorite" />
-                  <input type="hidden" name="redirectPath" value={`/story/${story.id}/chapter/${chapter.id}`} />
-                  <PrimaryButton>{bookmarked ? "Remove bookmark" : "Bookmark chapter"}</PrimaryButton>
-                </form>
+                <Link className="narrio-button-secondary" href="/write/bookmarks">
+                  My waypoints
+                </Link>
                 <form action={toggleLikeAction}>
                   <input type="hidden" name="chapterVersionId" value={currentVersion.id} />
-                  <input type="hidden" name="redirectPath" value={`/story/${story.id}/chapter/${chapter.id}`} />
+                  <input type="hidden" name="redirectPath" value={redirectPath} />
                   <PrimaryButton>{liked ? "Unlike version" : "Like current version"}</PrimaryButton>
                 </form>
               </>
@@ -102,6 +102,61 @@ export default async function ChapterReaderPage(props: {
         <div className="narrio-code" style={{ marginTop: 16 }}>
           {currentVersion.content_md}
         </div>
+      </SectionCard>
+
+      <SectionCard
+        title="Save this waypoint"
+        description="Tag this chapter as a memory, clue, quote, or fork idea."
+      >
+        {user ? (
+          <Stack>
+            <div className="narrio-bookmark-tags">
+              {bookmarkTags.length ? (
+                bookmarkTags.map((bookmark: any) => (
+                  <span key={bookmark.id} className="narrio-badge">
+                    {bookmark.tag} · {bookmark.is_public ? "public" : "private"}
+                  </span>
+                ))
+              ) : (
+                <span className="narrio-muted">No waypoint tags saved for this chapter yet.</span>
+              )}
+            </div>
+
+            <div className="narrio-tag-grid">
+              {BOOKMARK_TAG_PRESETS.map((preset) => {
+                const active = bookmarkTags.some((bookmark: any) => bookmark.tag === preset.tag);
+                return (
+                  <form key={preset.tag} action={toggleBookmarkAction} className="narrio-mini-form">
+                    <input type="hidden" name="chapterId" value={chapter.id} />
+                    <input type="hidden" name="tag" value={preset.tag} />
+                    <input type="hidden" name="redirectPath" value={redirectPath} />
+                    <PrimaryButton>{active ? `Remove ${preset.label}` : preset.label}</PrimaryButton>
+                    <span className="narrio-muted">{preset.description}</span>
+                  </form>
+                );
+              })}
+            </div>
+
+            <form action={saveBookmarkAction} className="narrio-form narrio-bookmark-form">
+              <input type="hidden" name="chapterId" value={chapter.id} />
+              <input type="hidden" name="redirectPath" value={redirectPath} />
+              <Field
+                label="Custom waypoint tag"
+                name="tag"
+                placeholder="Example: prophecy, battle-scene, emotional-turn"
+              />
+              <label className="narrio-checkbox">
+                <input type="checkbox" name="isPublic" />
+                <span>Mark this waypoint public later when public reader profiles are enabled.</span>
+              </label>
+              <PrimaryButton>Save waypoint</PrimaryButton>
+            </form>
+          </Stack>
+        ) : (
+          <Link className="narrio-button" href="/signin">
+            Sign in to save waypoints
+          </Link>
+        )}
       </SectionCard>
 
       <SectionCard title="Discussion" description="Reader comments for this chapter.">

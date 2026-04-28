@@ -18,7 +18,9 @@ export default async function StoryPage(props: {
   } = await supabase.auth.getUser();
 
   const following = user ? await isFollowingStory(supabase, { userId: user.id, storyId }) : false;
-  const visibleBranches = branches.filter((branch) => branch.visibility === "public" || user?.id === story.author_id);
+  const visibleBranches = branches.filter(
+    (branch) => branch.visibility === "public" || user?.id === story.author_id || user?.id === branch.created_by
+  );
 
   return (
     <Stack>

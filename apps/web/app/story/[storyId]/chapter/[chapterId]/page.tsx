@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  getBranchById,
   getChapterById,
   getCurrentVersionByChapterId,
   getStoryById,
@@ -27,6 +28,7 @@ export default async function ChapterReaderPage(props: {
 
   const story = await getStoryById(supabase, params.storyId);
   const chapter = await getChapterById(supabase, params.chapterId);
+  const branch = await getBranchById(supabase, chapter.branch_id);
   const currentVersion = await getCurrentVersionByChapterId(supabase, params.chapterId);
   const comments = await listCommentsByChapterId(supabase, chapter.id);
 
@@ -40,6 +42,8 @@ export default async function ChapterReaderPage(props: {
   const liked = user
     ? await hasLikedVersion(supabase, { userId: user.id, chapterVersionId: currentVersion.id })
     : false;
+  const canEditTimeline = user?.id === story.author_id || user?.id === branch.created_by;
+  const canForkChapter = Boolean(story.allow_forks) || canEditTimeline;
 
   return (
     <Stack>
@@ -55,6 +59,16 @@ export default async function ChapterReaderPage(props: {
             <Link className="narrio-button-secondary" href={`/story/${story.id}/timelines`}>
               Explore timelines
             </Link>
+            {canForkChapter ? (
+              <Link className="narrio-button" href={`/story/${story.id}/chapter/${chapter.id}/fork`}>
+                Fork from this chapter
+              </Link>
+            ) : null}
+            {canEditTimeline ? (
+              <Link className="narrio-button-secondary" href={`/write/editor/${story.id}/branch/${branch.id}?chapter=${chapter.id}`}>
+                Open in Story Studio
+              </Link>
+            ) : null}
             {user ? (
               <>
                 <form action={toggleBookmarkAction}>
@@ -70,7 +84,7 @@ export default async function ChapterReaderPage(props: {
                 </form>
               </>
             ) : (
-              <Link className="narrio-button" href="/signin">
+              <Link className="narrio-button-secondary" href="/signin">
                 Sign in for reader actions
               </Link>
             )}
@@ -80,6 +94,7 @@ export default async function ChapterReaderPage(props: {
 
       <SectionCard title="Current version" description="You are reading the latest saved version of this chapter.">
         <InlineMeta>
+          <span>Timeline: {branch.name}</span>
           <span>Version {currentVersion.version_number}</span>
           <span>Source: {currentVersion.source}</span>
           <span>Save note: {currentVersion.commit_message ?? "No save note"}</span>

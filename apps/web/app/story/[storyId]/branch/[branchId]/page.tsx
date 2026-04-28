@@ -17,6 +17,9 @@ export default async function StoryBranchPage(props: {
     data: { user }
   } = await supabase.auth.getUser();
 
+  const canEditTimeline = user?.id === story.author_id || user?.id === branch.created_by;
+  const canForkTimeline = Boolean(story.allow_forks) || canEditTimeline;
+
   return (
     <Stack>
       <PageHeader
@@ -28,7 +31,7 @@ export default async function StoryBranchPage(props: {
             <Link className="narrio-button-secondary" href={`/story/${story.id}/timelines`}>
               Explore timelines
             </Link>
-            {user?.id === story.author_id ? (
+            {canEditTimeline ? (
               <Link className="narrio-button" href={`/write/editor/${story.id}/branch/${branch.id}`}>
                 Open in Story Studio
               </Link>
@@ -46,24 +49,36 @@ export default async function StoryBranchPage(props: {
         </InlineMeta>
       </SectionCard>
 
-      <SectionCard title="Timeline chapters" description="Choose a chapter and continue reading this path.">
+      <SectionCard
+        title="Timeline chapters"
+        description="Choose a chapter to read, or fork from the exact chapter where your alternate path begins."
+      >
         <div className="narrio-list">
           {chapters.length ? (
             chapters.map((chapter) => (
-              <Link
-                key={chapter.id}
-                href={`/story/${story.id}/chapter/${chapter.id}`}
-                className="narrio-list-item"
-              >
-                <strong>
-                  Chapter {chapter.chapter_number}: {chapter.title}
-                </strong>
-                <div className="narrio-muted">{chapter.summary ?? "No summary yet."}</div>
-                <InlineMeta>
-                  <span>{chapter.is_published ? "Published" : "Draft"}</span>
-                  <span>Updated {new Date(chapter.updated_at).toLocaleDateString()}</span>
-                </InlineMeta>
-              </Link>
+              <div key={chapter.id} className="narrio-list-item narrio-split-list-item">
+                <Link href={`/story/${story.id}/chapter/${chapter.id}`} className="narrio-list-main">
+                  <strong>
+                    Chapter {chapter.chapter_number}: {chapter.title}
+                  </strong>
+                  <div className="narrio-muted">{chapter.summary ?? "No summary yet."}</div>
+                  <InlineMeta>
+                    <span>{chapter.is_published ? "Published" : "Draft"}</span>
+                    <span>Updated {new Date(chapter.updated_at).toLocaleDateString()}</span>
+                  </InlineMeta>
+                </Link>
+
+                <div className="narrio-mini-actions">
+                  <Link className="narrio-button-secondary" href={`/story/${story.id}/chapter/${chapter.id}`}>
+                    Read
+                  </Link>
+                  {canForkTimeline ? (
+                    <Link className="narrio-button" href={`/story/${story.id}/chapter/${chapter.id}/fork`}>
+                      Fork here
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
             ))
           ) : (
             <div className="narrio-list-item">No chapters in this timeline yet.</div>

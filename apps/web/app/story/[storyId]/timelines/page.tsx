@@ -15,7 +15,7 @@ export default async function TimelineExplorerPage(props: {
   } = await supabase.auth.getUser();
 
   const visibleTimelines = explorer.branches.filter(
-    (branch) => branch.visibility === "public" || user?.id === explorer.story.author_id
+    (branch) => branch.visibility === "public" || user?.id === explorer.story.author_id || user?.id === branch.created_by
   );
 
   const totalChapters = visibleTimelines.reduce((sum, branch) => sum + branch.chapter_count, 0);
@@ -79,7 +79,15 @@ export default async function TimelineExplorerPage(props: {
                       <Link className="narrio-button" href={`/story/${explorer.story.id}/branch/${timeline.id}`}>
                         Read timeline
                       </Link>
-                      {user?.id === explorer.story.author_id ? (
+                      {timeline.latest_chapter && (explorer.story.allow_forks || user?.id === explorer.story.author_id || user?.id === timeline.created_by) ? (
+                        <Link
+                          className="narrio-button-secondary"
+                          href={`/story/${explorer.story.id}/chapter/${timeline.latest_chapter.id}/fork`}
+                        >
+                          Fork latest
+                        </Link>
+                      ) : null}
+                      {user?.id === explorer.story.author_id || user?.id === timeline.created_by ? (
                         <Link className="narrio-button-secondary" href={`/write/editor/${explorer.story.id}/branch/${timeline.id}`}>
                           Edit
                         </Link>

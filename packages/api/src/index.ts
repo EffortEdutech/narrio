@@ -6,3 +6,4 @@ export * from "./publishing";
 export * from "./social";
 export * from "./comments";
 export * from "./timeline-explorer";
+export * from "./chapter-forks";

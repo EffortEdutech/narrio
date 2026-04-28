@@ -10,9 +10,9 @@ export default async function WriteDashboardPage() {
   return (
     <Stack>
       <PageHeader
-        eyebrow="Sprint 2"
+        eyebrow="Sprint 3"
         title="My stories"
-        description="Create and manage your branching story projects."
+        description="Write, publish, and manage story visibility from one dashboard."
         actions={
           <Link className="narrio-button" href="/write/new">
             Create story
@@ -24,14 +24,16 @@ export default async function WriteDashboardPage() {
         <div className="narrio-list">
           {stories.length ? (
             stories.map((story) => (
-              <Link
-                key={story.id}
-                className="narrio-list-item"
-                href={`/write/editor/${story.id}/branch/${story.main_branch_id}`}
-              >
+              <div key={story.id} className="narrio-list-item">
                 <strong>{story.title}</strong>
                 <div className="narrio-muted">{story.synopsis ?? "No synopsis yet."}</div>
-              </Link>
+                <div style={{ height: 10 }} />
+                <div className="narrio-nav">
+                  <Link href={`/write/editor/${story.id}/branch/${story.main_branch_id}`}>Open editor</Link>
+                  <Link href={`/write/settings/${story.id}`}>Settings</Link>
+                  <Link href={`/story/${story.id}`}>Public view</Link>
+                </div>
+              </div>
             ))
           ) : (
             <div className="narrio-list-item">

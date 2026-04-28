@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   getBranchById,
   getBranchesByStoryId,
@@ -24,6 +25,13 @@ import {
   restoreVersionAction,
   saveChapterVersionAction
 } from "../../../../actions";
+import { toggleChapterPublishAction } from "../../../../settings_actions";
+import {
+  aiContinueChapterAction,
+  aiRewriteChapterAction,
+  aiSuggestChapterTitleAction,
+  aiSummarizeChapterAction
+} from "../../../../ai_actions";
 
 export default async function BranchEditorPage(props: {
   params: Promise<{ storyId: string; branchId: string }>;
@@ -31,9 +39,11 @@ export default async function BranchEditorPage(props: {
 }) {
   const params = await props.params;
   const searchParams = (await props.searchParams) ?? {};
-  const { supabase } = await requireUser();
+  const { supabase, user } = await requireUser();
 
   const story = await getStoryById(supabase, params.storyId);
+  if (story.author_id !== user.id) redirect("/write");
+
   const branch = await getBranchById(supabase, params.branchId);
   const branches = await getBranchesByStoryId(supabase, params.storyId);
   const chapters = await getChaptersByBranchId(supabase, params.branchId);
@@ -50,9 +60,10 @@ export default async function BranchEditorPage(props: {
       <PageHeader
         eyebrow="Editor"
         title={`${story.title} — ${branch.name}`}
-        description={branch.description ?? "Write, version, and branch from here."}
+        description={branch.description ?? "Write, version, branch, publish, and use AI from here."}
         actions={
           <div className="narrio-nav">
+            <Link href={`/write/settings/${story.id}`}>Story settings</Link>
             <Link href={`/story/${story.id}/branch/${branch.id}`}>Public branch view</Link>
           </div>
         }
@@ -73,6 +84,9 @@ export default async function BranchEditorPage(props: {
                       Chapter {chapter.chapter_number}: {chapter.title}
                     </strong>
                     <div className="narrio-muted">{chapter.summary ?? "No summary yet."}</div>
+                    <div className="narrio-muted">
+                      {chapter.is_published ? "Published" : "Draft"} · Branch {branch.visibility}
+                    </div>
                   </Link>
                 ))
               ) : (
@@ -111,7 +125,10 @@ export default async function BranchEditorPage(props: {
                   className="narrio-list-item"
                 >
                   <strong>{branchItem.name}</strong>
-                  <div className="narrio-muted">{branchItem.description ?? "No description yet."}</div>
+                  <div className="narrio-muted">
+                    {branchItem.description ?? "No description yet."}
+                  </div>
+                  <div className="narrio-muted">Visibility: {branchItem.visibility}</div>
                 </Link>
               ))}
             </div>
@@ -125,6 +142,22 @@ export default async function BranchEditorPage(props: {
                 title={`Editing Chapter ${selectedChapter.chapter_number}`}
                 description="Each save creates a new chapter version and marks it current."
               >
+                <div className="narrio-nav" style={{ marginBottom: 14 }}>
+                  <form action={toggleChapterPublishAction}>
+                    <input type="hidden" name="storyId" value={story.id} />
+                    <input type="hidden" name="branchId" value={branch.id} />
+                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
+                    <input
+                      type="hidden"
+                      name="nextPublishedState"
+                      value={selectedChapter.is_published ? "false" : "true"}
+                    />
+                    <PrimaryButton>
+                      {selectedChapter.is_published ? "Unpublish chapter" : "Publish chapter"}
+                    </PrimaryButton>
+                  </form>
+                </div>
+
                 <form action={saveChapterVersionAction} className="narrio-form">
                   <input type="hidden" name="storyId" value={story.id} />
                   <input type="hidden" name="branchId" value={branch.id} />
@@ -145,6 +178,53 @@ export default async function BranchEditorPage(props: {
                   />
                   <PrimaryButton>Save new version</PrimaryButton>
                 </form>
+              </SectionCard>
+
+              <SectionCard
+                title="AI writer assist"
+                description="These actions create new chapter versions. Without OPENAI_API_KEY, mock mode is used."
+              >
+                <div className="narrio-list">
+                  <form action={aiContinueChapterAction} className="narrio-list-item">
+                    <input type="hidden" name="storyId" value={story.id} />
+                    <input type="hidden" name="branchId" value={branch.id} />
+                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
+                    <strong>AI continue chapter</strong>
+                    <div className="narrio-muted">Appends a continuation to the current chapter content.</div>
+                    <div style={{ height: 12 }} />
+                    <PrimaryButton>Run continue</PrimaryButton>
+                  </form>
+
+                  <form action={aiRewriteChapterAction} className="narrio-list-item">
+                    <input type="hidden" name="storyId" value={story.id} />
+                    <input type="hidden" name="branchId" value={branch.id} />
+                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
+                    <strong>AI rewrite chapter</strong>
+                    <div className="narrio-muted">Creates a rewritten version of the full chapter.</div>
+                    <div style={{ height: 12 }} />
+                    <PrimaryButton>Run rewrite</PrimaryButton>
+                  </form>
+
+                  <form action={aiSummarizeChapterAction} className="narrio-list-item">
+                    <input type="hidden" name="storyId" value={story.id} />
+                    <input type="hidden" name="branchId" value={branch.id} />
+                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
+                    <strong>AI summarize chapter</strong>
+                    <div className="narrio-muted">Generates a better summary and saves it as a new version.</div>
+                    <div style={{ height: 12 }} />
+                    <PrimaryButton>Run summarize</PrimaryButton>
+                  </form>
+
+                  <form action={aiSuggestChapterTitleAction} className="narrio-list-item">
+                    <input type="hidden" name="storyId" value={story.id} />
+                    <input type="hidden" name="branchId" value={branch.id} />
+                    <input type="hidden" name="chapterId" value={selectedChapter.id} />
+                    <strong>AI suggest title</strong>
+                    <div className="narrio-muted">Suggests a stronger chapter title and saves it as a new version.</div>
+                    <div style={{ height: 12 }} />
+                    <PrimaryButton>Run title suggestion</PrimaryButton>
+                  </form>
+                </div>
               </SectionCard>
 
               <SectionCard

@@ -7,8 +7,8 @@ export default function HomePage() {
       <div className="narrio-hero">
         <PageHeader
           eyebrow="Sprint 2"
-          title="Branch-first storytelling is now writer-capable."
-          description="Create stories, save chapter versions, restore older drafts, and branch into alternate paths."
+          title="Branch-first storytelling now supports publishing and reader feedback."
+          description="Create stories, publish chapters, restore drafts, branch into alternate paths, and let readers follow, bookmark, and like."
           actions={
             <div className="narrio-nav">
               <Link className="narrio-button" href="/write">

@@ -12,7 +12,7 @@ export default async function LibraryPage() {
       <PageHeader
         eyebrow="Library"
         title="Public stories"
-        description="Published stories are visible here through RLS."
+        description="Published stories that readers can discover, follow, and read."
       />
 
       <div className="narrio-grid library">
@@ -23,15 +23,19 @@ export default async function LibraryPage() {
                 <span>Status: {story.status}</span>
                 <span>Visibility: {story.visibility}</span>
               </div>
-              <div style={{ marginTop: 14 }}>
+              <div style={{ height: 14 }} />
+              <div className="narrio-nav">
                 <Link className="narrio-button" href={`/story/${story.id}`}>
                   Open story
+                </Link>
+                <Link className="narrio-button-secondary" href={`/u/${story.author_id}`}>
+                  Writer profile
                 </Link>
               </div>
             </SectionCard>
           ))
         ) : (
-          <SectionCard title="No public stories yet" description="Seed data or publish a story to populate the library." />
+          <SectionCard title="No public stories yet" description="Publish a story from writer settings to populate the library." />
         )}
       </div>
     </Stack>

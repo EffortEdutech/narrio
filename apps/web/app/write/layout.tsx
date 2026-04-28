@@ -15,12 +15,14 @@ export default async function WriteLayout(props: { children: ReactNode }) {
             <strong>{user.email}</strong>
           </div>
           <div className="narrio-nav">
-            <Link href="/write">Dashboard</Link>
-            <Link href="/write/new">New story</Link>
-            <form action={signOutAction}>
-              <button type="submit">Sign out</button>
-            </form>
-          </div>
+  <Link href="/write">Dashboard</Link>
+  <Link href="/write/new">New story</Link>
+  <Link href="/write/bookmarks">Bookmarks</Link>
+  <form action={signOutAction}>
+    <button type="submit">Sign out</button>
+  </form>
+</div>
+
         </div>
       </div>
       {props.children}

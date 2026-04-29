@@ -11,7 +11,7 @@ export default function HomePage() {
             <div className="narrio-eyebrow">Powered by {BRAND.engine}</div>
             <h1 id="home-hero-title">Every story has another path.</h1>
             <p>
-              {BRAND.tagline} Read a chapter, follow the canon, save a waypoint, or start ForkCraft and
+              {BRAND.tagline} Read a chapter, follow the canon, save a waypoint, or start Forkcraft and
               create a timeline that only you imagined.
             </p>
             <div className="narrio-hero-actions">
@@ -59,7 +59,7 @@ export default function HomePage() {
           <div className="narrio-feature-icon">📖</div>
           <strong>Explore timelines</strong>
           <p className="narrio-muted">
-            Open a story as a reader first. Follow the root path or discover variant timelines.
+            Open a universe as a reader first. Follow the root path or discover variant timelines.
           </p>
         </article>
         <article className="narrio-feature-card">
@@ -71,7 +71,7 @@ export default function HomePage() {
         </article>
         <article className="narrio-feature-card">
           <div className="narrio-feature-icon">✨</div>
-          <strong>Start ForkCraft</strong>
+          <strong>Start Forkcraft</strong>
           <p className="narrio-muted">
             Create a private draft timeline from any allowed chapter and continue the story your way.
           </p>
@@ -79,12 +79,12 @@ export default function HomePage() {
       </div>
 
       <SectionCard
-        title="How ForkCraft works"
-        description="The app keeps the structure simple: one story can grow into many readable paths."
+        title="How Forkcraft works"
+        description="The app keeps the structure simple: one universe can grow into many readable paths."
       >
         <div className="narrio-fork-preview">
           <div>
-            <strong>01 · Story</strong>
+            <strong>01 · Universe</strong>
             <p className="narrio-muted">A universe begins with a story and a canon timeline.</p>
           </div>
           <div>
@@ -93,7 +93,7 @@ export default function HomePage() {
           </div>
           <div>
             <strong>03 · Timeline</strong>
-            <p className="narrio-muted">ForkCraft turns that choice into a readable alternate path.</p>
+            <p className="narrio-muted">Forkcraft turns that choice into a readable alternate path.</p>
           </div>
         </div>
       </SectionCard>
@@ -102,7 +102,7 @@ export default function HomePage() {
         <Link className="narrio-choice-card" href="/library">
           <div className="narrio-choice-icon">🌌</div>
           <strong>I want to explore</strong>
-          <p className="narrio-muted">Browse public stories and find timelines to follow.</p>
+          <p className="narrio-muted">Browse public universes and find timelines to follow.</p>
         </Link>
         <Link className="narrio-choice-card" href="/write/new">
           <div className="narrio-choice-icon">✍️</div>

@@ -27,7 +27,7 @@ export default async function ActivityPage() {
   return (
     <Stack>
       <PageHeader
-        eyebrow="ForkCraft Pulse"
+        eyebrow="Forkcraft Pulse"
         title="Your activity"
         description="A lightweight feed of the paths you follow, save, like, fork, and write."
         actions={
@@ -51,7 +51,7 @@ export default async function ActivityPage() {
 
       <SectionCard
         title="Recent pulse"
-        description="This stub is generated from existing Narrio tables, so no new activity table is required yet."
+        description="This view is generated from existing Narrio tables, so no new activity table is required yet."
       >
         {activity.length ? (
           <div className="narrio-activity-feed">
@@ -63,10 +63,10 @@ export default async function ActivityPage() {
           <div className="narrio-list-item">
             <strong>No activity yet.</strong>
             <p className="narrio-muted">
-              Follow a story, save a waypoint, like a chapter, or fork a timeline to start your pulse.
+              Follow a universe, save a waypoint, like a chapter, or fork a timeline to start your pulse.
             </p>
             <Link className="narrio-button-secondary" href="/library">
-              Find a story
+              Find a universe
             </Link>
           </div>
         )}

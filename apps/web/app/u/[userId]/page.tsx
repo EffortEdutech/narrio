@@ -31,9 +31,9 @@ function initials(name: string) {
 }
 
 function storyShape(item: { forkTimelineCount: number; rootTimelineCount: number }) {
-  if (item.forkTimelineCount > 0) return "ForkCraft universe";
+  if (item.forkTimelineCount > 0) return "Forkcraft universe";
   if (item.rootTimelineCount > 0) return "Root canon";
-  return "Published story";
+  return "Released universe";
 }
 
 export default async function PublicProfilePage(props: {
@@ -76,7 +76,7 @@ export default async function PublicProfilePage(props: {
             <PageHeader
               eyebrow="Creator profile"
               title={name}
-              description={profile.bio ?? "A Narrio writer shaping story universes, timelines, and ForkCraft paths."}
+              description={profile.bio ?? "A Narrio writer shaping story universes, timelines, and Forkcraft paths."}
             />
             <InlineMeta>
               <span>{writerHandle(profile)}</span>
@@ -101,7 +101,7 @@ export default async function PublicProfilePage(props: {
       <div className={styles.statGrid}>
         <div>
           <strong>{publicStoryCount}</strong>
-          <span>Public stories</span>
+          <span>Public universes</span>
         </div>
         <div>
           <strong>{publicTimelineCount}</strong>
@@ -109,11 +109,11 @@ export default async function PublicProfilePage(props: {
         </div>
         <div>
           <strong>{publishedChapterCount}</strong>
-          <span>Chapters</span>
+          <span>Released chapters</span>
         </div>
         <div>
           <strong>{forkTimelineCount}</strong>
-          <span>ForkCraft paths</span>
+          <span>Forkcraft paths</span>
         </div>
       </div>
 
@@ -131,11 +131,11 @@ export default async function PublicProfilePage(props: {
           <div>
             <span className={styles.kicker}>Featured universe</span>
             <h2>{featuredStory.story.title}</h2>
-            <p>{featuredStory.story.synopsis ?? "A published Narrio universe ready for readers."}</p>
+            <p>{featuredStory.story.synopsis ?? "A released Narrio universe ready for readers."}</p>
             <InlineMeta>
-              <span>{featuredStory.publishedChapterCount} chapters</span>
+              <span>{featuredStory.publishedChapterCount} released chapters</span>
               <span>{featuredStory.publicTimelineCount} timelines</span>
-              <span>{featuredStory.story.allow_forks ? "ForkCraft open" : "Closed canon"}</span>
+              <span>{featuredStory.story.allow_forks ? "Forkcraft open" : "Closed canon"}</span>
             </InlineMeta>
           </div>
 
@@ -146,12 +146,12 @@ export default async function PublicProfilePage(props: {
               </Link>
             ) : null}
             <Link className="narrio-button-secondary" href={`/story/${featuredStory.story.id}`}>
-              Story page
+              Universe page
             </Link>
           </div>
         </section>
       ) : (
-        <SectionCard title="No public stories yet" description="This writer has a profile, but no discoverable published universe yet.">
+        <SectionCard title="No public universes yet" description="This writer has a profile, but no discoverable released universe yet.">
           <Link className="narrio-button-secondary" href="/library">
             Return to Library
           </Link>
@@ -159,7 +159,7 @@ export default async function PublicProfilePage(props: {
       )}
 
       <div className={styles.profileColumns}>
-        <SectionCard title="Published universes" description="Public stories by this writer. Unlisted and private drafts stay outside this profile.">
+        <SectionCard title="Released universes" description="Public universes by this writer. Unlisted and private drafts stay outside this profile.">
           <div className={styles.storyGrid}>
             {stories.length ? (
               stories.map((item) => (
@@ -173,9 +173,9 @@ export default async function PublicProfilePage(props: {
                   <p>{item.story.synopsis ?? "No synopsis yet."}</p>
 
                   <InlineMeta>
-                    <span>{item.publishedChapterCount} chapters</span>
+                    <span>{item.publishedChapterCount} released chapters</span>
                     <span>{item.publicTimelineCount} timelines</span>
-                    <span>{item.story.allow_forks ? "ForkCraft open" : "Closed canon"}</span>
+                    <span>{item.story.allow_forks ? "Forkcraft open" : "Closed canon"}</span>
                   </InlineMeta>
 
                   {item.latestChapter ? (
@@ -194,30 +194,30 @@ export default async function PublicProfilePage(props: {
                       </Link>
                     ) : null}
                     <Link className="narrio-button-secondary" href={`/story/${item.story.id}`}>
-                      Story page
+                      Universe page
                     </Link>
                   </div>
                 </article>
               ))
             ) : (
-              <div className="narrio-list-item">No public story cards yet.</div>
+              <div className="narrio-list-item">No public universe cards yet.</div>
             )}
           </div>
         </SectionCard>
 
         <aside className={styles.sidePanel}>
-          <SectionCard title="Writer signal" description="Public profile health based on discoverable story data.">
+          <SectionCard title="Writer signal" description="Public profile health based on discoverable universe data.">
             <div className={styles.signalList}>
               <div>
-                <span>ForkCraft-ready stories</span>
+                <span>Forkcraft-ready universes</span>
                 <strong>{forkableStoryCount}</strong>
               </div>
               <div>
-                <span>Forked story origins</span>
+                <span>Forked universe origins</span>
                 <strong>{forkedStoryCount}</strong>
               </div>
               <div>
-                <span>Latest publication</span>
+                <span>Latest release</span>
                 <strong>{formatDate(latestPublishedAt)}</strong>
               </div>
             </div>

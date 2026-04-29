@@ -17,7 +17,7 @@ export default async function WriteDashboardPage() {
         actions={
           <div className="narrio-nav">
             <Link className="narrio-button" href="/write/new">
-              Start a story
+              Start a universe
             </Link>
             <Link className="narrio-button-secondary" href="/onboarding">
               First 60 seconds
@@ -35,7 +35,7 @@ export default async function WriteDashboardPage() {
           <span>Save a waypoint</span>
           <span>Fork a timeline</span>
           <span>Write your path</span>
-          <span>Control publishing</span>
+          <span>Control release</span>
         </div>
         <div style={{ height: 12 }} />
         <Link className="narrio-button-secondary" href="/onboarding">
@@ -43,7 +43,7 @@ export default async function WriteDashboardPage() {
         </Link>
       </SectionCard>
 
-      <SectionCard title="Draft timelines" description="Each story starts with a main timeline and can grow through ForkCraft.">
+      <SectionCard title="Draft timelines" description="Each universe starts with a main timeline and can grow through Forkcraft.">
         <div className="narrio-list">
           {stories.length ? (
             stories.map((story) => {
@@ -59,7 +59,7 @@ export default async function WriteDashboardPage() {
                     <InlineMeta>
                       <span>{story.status}</span>
                       <span>{story.visibility}</span>
-                      <span>{story.allow_forks ? "ForkCraft on" : "ForkCraft off"}</span>
+                      <span>{story.allow_forks ? "Forkcraft open" : "Forkcraft closed"}</span>
                     </InlineMeta>
                   </div>
                   <div className="narrio-mini-actions">
@@ -67,7 +67,7 @@ export default async function WriteDashboardPage() {
                       Studio
                     </Link>
                     <Link className="narrio-button" href={`/write/publish/${story.id}`}>
-                      Publish Center
+                      Release Center
                     </Link>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ export default async function WriteDashboardPage() {
             })
           ) : (
             <div className="narrio-list-item">
-              No stories yet. Start your first story and create a world that can branch.
+              No universes yet. Start your first universe and create a world that can branch.
             </div>
           )}
         </div>

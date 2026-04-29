@@ -55,22 +55,22 @@ export default async function BranchEditorPage(props: {
         description={branch.description ?? "Write, version, and fork this timeline into new paths."}
         actions={
           <div className="narrio-nav">
-            <Link href={`/write/publish/${story.id}`}>Publish Center</Link>
+            <Link href={`/write/publish/${story.id}`}>Release Center</Link>
             <Link href={`/story/${story.id}/branch/${branch.id}`}>Reader preview</Link>
           </div>
         }
       />
 
-      <SectionCard title="Release snapshot" description="Publishing is controlled separately from writing, so unfinished paths can stay private.">
+      <SectionCard title="Release snapshot" description="Release is controlled separately from writing, so unfinished paths can stay private.">
         <div className="narrio-publish-snapshot">
           <InlineMeta>
-            <span>Story: {story.status}</span>
-            <span>Story visibility: {story.visibility}</span>
+            <span>Universe: {story.status}</span>
+            <span>Universe visibility: {story.visibility}</span>
             <span>Timeline visibility: {branch.visibility}</span>
-            <span>{chapters.filter((chapter) => chapter.is_published).length}/{chapters.length} chapters published</span>
+            <span>{chapters.filter((chapter) => chapter.is_published).length}/{chapters.length} chapters released</span>
           </InlineMeta>
           <Link className="narrio-button-secondary" href={`/write/publish/${story.id}`}>
-            Open Publish Control Center
+            Open Release Center
           </Link>
         </div>
       </SectionCard>
@@ -91,7 +91,7 @@ export default async function BranchEditorPage(props: {
                     </strong>
                     <div className="narrio-muted">{chapter.summary ?? "No summary yet."}</div>
                     <InlineMeta>
-                      <span>{chapter.is_published ? "Published" : "Draft"}</span>
+                      <span>{chapter.is_published ? "Released" : "Draft"}</span>
                     </InlineMeta>
                   </Link>
                 ))
@@ -122,7 +122,7 @@ export default async function BranchEditorPage(props: {
             </form>
           </SectionCard>
 
-          <SectionCard title="Story timelines" description="Navigate between alternate paths in this story.">
+          <SectionCard title="Universe timelines" description="Navigate between alternate paths in this universe.">
             <div className="narrio-list">
               {branches.map((branchItem) => (
                 <Link
@@ -147,7 +147,7 @@ export default async function BranchEditorPage(props: {
             <>
               <SectionCard
                 title={`Editing Chapter ${selectedChapter.chapter_number}`}
-                description="Each save creates a new version and marks it current. Publishing is controlled from the Publish Center."
+                description="Each save creates a new version and marks it current. Release is controlled from the Release Center."
               >
                 <form action={saveChapterVersionAction} className="narrio-form">
                   <input type="hidden" name="storyId" value={story.id} />

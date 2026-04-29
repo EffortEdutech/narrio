@@ -8,13 +8,13 @@ const appUrl =
 const forkcraftSteps = [
   {
     step: "01",
-    title: "Read a story",
+    title: "Read a universe",
     body: "Enter a universe and follow the canon timeline or explore variant paths."
   },
   {
     step: "02",
     title: "Fork a chapter",
-    body: "Start ForkCraft from any turning point and create your own timeline."
+    body: "Start Forkcraft from any turning point and create your own timeline."
   },
   {
     step: "03",
@@ -31,7 +31,7 @@ const featureCards = [
   },
   {
     icon: "🍴",
-    title: "ForkCraft engine",
+    title: "Forkcraft engine",
     body: "Readers can become creators by forking a chapter and writing what happens next."
   },
   {
@@ -75,10 +75,10 @@ export default function MarketingPage() {
 
             <div className="hero-actions" aria-label="Primary actions">
               <a className="marketing-button marketing-button-primary" href={`${appUrl}/write`}>
-                Start ForkCraft
+                Start Forkcraft
               </a>
               <a className="marketing-button marketing-button-secondary" href={`${appUrl}/library`}>
-                Explore stories
+                Explore universes
               </a>
             </div>
 
@@ -134,9 +134,9 @@ export default function MarketingPage() {
       <section className="section-panel" id="forkcraft" aria-labelledby="forkcraft-heading">
         <div className="section-heading">
           <p className="section-kicker">The signature loop</p>
-          <h2 id="forkcraft-heading">What is ForkCraft?</h2>
+          <h2 id="forkcraft-heading">What is Forkcraft?</h2>
           <p>
-            ForkCraft is the art of creating alternate story paths. It turns
+            Forkcraft is the art of creating alternate story paths. It turns
             reading into participation and every chapter into a possible
             beginning.
           </p>
@@ -226,7 +226,7 @@ export default function MarketingPage() {
         <p className="section-kicker">Start with one path</p>
         <h2 id="cta-heading">Your story is waiting to branch.</h2>
         <p>
-          Open Narrio, explore the first timelines, and practice ForkCraft from
+          Open Narrio, explore the first timelines, and practice Forkcraft from
           the chapter where everything changes.
         </p>
         <div className="hero-actions centered">
@@ -234,7 +234,7 @@ export default function MarketingPage() {
             Begin first 60 seconds
           </a>
           <a className="marketing-button marketing-button-secondary" href={`${appUrl}/library`}>
-            Browse public stories
+            Browse public universes
           </a>
         </div>
       </section>

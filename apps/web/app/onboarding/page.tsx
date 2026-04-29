@@ -39,7 +39,7 @@ export default async function OnboardingPage() {
                 Start reading
               </Link>
               <Link className="narrio-button-secondary" href={writerHref}>
-                Start ForkCraft
+                Start Forkcraft
               </Link>
             </div>
           </div>
@@ -59,7 +59,7 @@ export default async function OnboardingPage() {
                 <span className="narrio-muted">See how one choice becomes many paths.</span>
               </div>
               <div className="narrio-screen-card">
-                <strong>✨ Start ForkCraft</strong>
+                <strong>✨ Start Forkcraft</strong>
                 <span className="narrio-muted">Create a private draft timeline.</span>
               </div>
               <div className="narrio-story-tree-visual">
@@ -82,14 +82,14 @@ export default async function OnboardingPage() {
         <OnboardingStep
           number="01"
           title="Read one chapter"
-          description="Open a story and feel the normal reader flow before creating anything."
+          description="Open a universe and feel the normal reader flow before creating anything."
           href={featuredStoryHref}
-          action="Open a story"
+          action="Open a universe"
         />
         <OnboardingStep
           number="02"
           title="Explore timelines"
-          description="See how one story can branch into alternate paths without becoming confusing."
+          description="See how one universe can branch into alternate paths without becoming confusing."
           href={featuredTimelineHref}
           action="Explore timelines"
         />
@@ -112,7 +112,7 @@ export default async function OnboardingPage() {
           title="Write your version"
           description="Move into Story Studio and continue a timeline with your own chapter."
           href={writerHref}
-          action={myFirstStory ? "Open your draft" : "Start a story"}
+          action={myFirstStory ? "Open your draft" : "Start a universe"}
         />
       </section>
 
@@ -120,12 +120,12 @@ export default async function OnboardingPage() {
         <Link className="narrio-choice-card" href="/library">
           <div className="narrio-choice-icon">📖</div>
           <strong>Explore universes</strong>
-          <p className="narrio-muted">Read stories and discover the timelines already released.</p>
+          <p className="narrio-muted">Read universes and discover the timelines already released.</p>
         </Link>
         <Link className="narrio-choice-card" href={writerHref}>
           <div className="narrio-choice-icon">✍️</div>
-          <strong>Start ForkCraft</strong>
-          <p className="narrio-muted">Create your own story or continue from a fork point.</p>
+          <strong>Start Forkcraft</strong>
+          <p className="narrio-muted">Create your own universe or continue from a fork point.</p>
         </Link>
       </div>
 
@@ -133,8 +133,8 @@ export default async function OnboardingPage() {
         <SectionCard title="Reader loop" description="Use this path when you want to understand Narrio as a reader first.">
           <div className="narrio-list">
             <Link className="narrio-list-item" href="/library">
-              <strong>Find a public story</strong>
-              <div className="narrio-muted">Browse stories that are ready to read.</div>
+              <strong>Find a public universe</strong>
+              <div className="narrio-muted">Browse universes that are ready to read.</div>
             </Link>
             <Link className="narrio-list-item" href={featuredTimelineHref}>
               <strong>Compare timelines</strong>
@@ -150,7 +150,7 @@ export default async function OnboardingPage() {
         <SectionCard title="Writer loop" description="Use this path when you want to create immediately.">
           <div className="narrio-list">
             <Link className="narrio-list-item" href="/write/new">
-              <strong>Create a story</strong>
+              <strong>Create a universe</strong>
               <div className="narrio-muted">Start a main timeline for your own world.</div>
             </Link>
             <Link className="narrio-list-item" href={writerHref}>

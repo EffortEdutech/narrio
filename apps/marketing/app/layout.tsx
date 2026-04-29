@@ -9,7 +9,7 @@ const appUrl =
 export const metadata = {
   title: "Narrio — Where stories branch forever",
   description:
-    "Narrio is a social storytelling platform where readers fork chapters, create timelines, and build living story universes with ForkCraft."
+    "Narrio is a social storytelling platform where readers fork chapters, create timelines, and build living story universes with Forkcraft."
 };
 
 export default function RootLayout(props: { children: ReactNode }) {
@@ -24,7 +24,7 @@ export default function RootLayout(props: { children: ReactNode }) {
             </a>
 
             <nav>
-              <a href="#forkcraft">ForkCraft</a>
+              <a href="#forkcraft">Forkcraft</a>
               <a href={`${appUrl}/library`}>Explore</a>
               <a href={`${appUrl}/write`}>Write</a>
             </nav>
@@ -34,7 +34,7 @@ export default function RootLayout(props: { children: ReactNode }) {
 
           <footer className="marketing-footer">
             <p>Narrio — Where stories branch forever.</p>
-            <p>ForkCraft is the engine that turns readers into creators.</p>
+            <p>Forkcraft is the engine that turns readers into creators.</p>
           </footer>
         </div>
       </body>

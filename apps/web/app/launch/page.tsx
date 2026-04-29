@@ -4,19 +4,19 @@ import styles from "./launch.module.css";
 
 const launchChecks = [
   {
-    title: "Public story page",
+    title: "Public universe page",
     status: "Ready",
-    note: "Story hero, start reading, timeline chooser, writer link, and reader follow action."
+    note: "Universe hero, start reading, timeline chooser, writer link, and reader follow action."
   },
   {
     title: "Library discovery",
     status: "Ready",
-    note: "Search, sort, ForkCraft filters, latest chapter signals, and author profile links."
+    note: "Search, sort, Forkcraft filters, latest chapter signals, and author profile links."
   },
   {
     title: "Writer profile",
     status: "Ready",
-    note: "Creator identity, featured universe, public story cards, and profile health stats."
+    note: "Creator identity, featured universe, public universe cards, and profile health stats."
   },
   {
     title: "Launch states",
@@ -49,7 +49,7 @@ export default function LaunchReadinessPage() {
 
         <div className={styles.heroCard}>
           <span>Demo path</span>
-          <strong>Library → Story → Timeline → Chapter → Writer Profile</strong>
+          <strong>Library → Universe → Timeline → Chapter → Writer Profile</strong>
           <p>This is the minimum public journey Narrio should feel confident presenting.</p>
         </div>
       </section>

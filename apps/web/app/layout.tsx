@@ -18,7 +18,7 @@ export default function RootLayout(props: { children: ReactNode }) {
               <span className="narrio-brand-mark">N</span>
               <span className="narrio-brand-word">
                 <span>Narrio</span>
-                <span className="narrio-brand-subtitle">ForkCraft Engine</span>
+                <span className="narrio-brand-subtitle">Forkcraft Engine</span>
               </span>
             </Link>
             <nav className="narrio-nav" aria-label="Main navigation">

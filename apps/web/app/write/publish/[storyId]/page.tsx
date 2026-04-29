@@ -20,7 +20,7 @@ const visibilityCopy: Record<Visibility, string> = {
 };
 
 function formatDate(value: string | null) {
-  if (!value) return "Not published";
+  if (!value) return "Not released";
   return new Date(value).toLocaleString();
 }
 
@@ -61,9 +61,9 @@ export default async function PublishControlCenterPage(props: {
   return (
     <Stack>
       <PageHeader
-        eyebrow="Publish Control Center"
+        eyebrow="Release Center"
         title={`Launch room for ${story.title}`}
-        description="Choose what readers can see before this story leaves Story Studio. Publish the story, open selected timelines, and release chapters one by one."
+        description="Choose what readers can see before this universe leaves Story Studio. Release the universe shell, open selected timelines, and release chapters one by one."
         actions={
           <div className="narrio-nav">
             <Link href="/write">Writer dashboard</Link>
@@ -79,23 +79,23 @@ export default async function PublishControlCenterPage(props: {
         title={isStoryLive ? "Reader-ready" : "Not fully reader-ready yet"}
         description={
           isStoryLive
-            ? "This story has a visible shell, at least one visible timeline, and at least one published chapter."
-            : "Use the checklist below to make the story visible without accidentally exposing unfinished paths."
+            ? "This universe has a visible shell, at least one visible timeline, and at least one released chapter."
+            : "Use the checklist below to make the universe visible without accidentally exposing unfinished paths."
         }
       >
         <div className={isStoryLive ? "narrio-publish-banner ready" : "narrio-publish-banner draft"}>
           <div>
             <span className="narrio-badge">{isStoryLive ? "Live path open" : "Controlled draft"}</span>
-            <h2>{isStoryLive ? "Readers can enter this story." : "Readers need at least one complete public path."}</h2>
+            <h2>{isStoryLive ? "Readers can enter this universe." : "Readers need at least one complete public path."}</h2>
             <p>
-              Story status is <strong>{story.status}</strong>, story visibility is <strong>{story.visibility}</strong>, {publishedChapters} of {chapters.length} chapters are published, and {visibleTimelines} timelines are visible.
+              Universe status is <strong>{story.status}</strong>, universe visibility is <strong>{story.visibility}</strong>, {publishedChapters} of {chapters.length} chapters are released, and {visibleTimelines} timelines are visible.
             </p>
           </div>
           <form action={setStoryPublishStatusAction}>
             <input type="hidden" name="storyId" value={story.id} />
             <input type="hidden" name="status" value={nextStoryStatus} />
             <button className={story.status === "published" ? "narrio-button-secondary" : "narrio-button"} type="submit">
-              {story.status === "published" ? "Return story to draft" : "Publish story shell"}
+              {story.status === "published" ? "Return universe to draft" : "Release universe shell"}
             </button>
           </form>
         </div>
@@ -104,15 +104,15 @@ export default async function PublishControlCenterPage(props: {
       <div className="narrio-stat-grid">
         <div className="narrio-stat-card">
           <strong>{story.status}</strong>
-          <span>Story status</span>
+          <span>Universe status</span>
         </div>
         <div className="narrio-stat-card">
           <strong>{story.visibility}</strong>
-          <span>Story visibility</span>
+          <span>Universe visibility</span>
         </div>
         <div className="narrio-stat-card">
           <strong>{publishedChapters}/{chapters.length}</strong>
-          <span>Published chapters</span>
+          <span>Released chapters</span>
         </div>
         <div className="narrio-stat-card">
           <strong>{visibleTimelines}/{branches.length}</strong>
@@ -122,7 +122,7 @@ export default async function PublishControlCenterPage(props: {
 
       <TwoColumn>
         <div className="narrio-stack">
-          <SectionCard title="Story access" description="This controls the story shell. Chapters and timelines still have their own gates.">
+          <SectionCard title="Universe access" description="This controls the universe shell. Chapters and timelines still have their own gates.">
             <form action={updateStoryPublishingSettingsAction} className="narrio-form">
               <input type="hidden" name="storyId" value={story.id} />
               <label className="narrio-field">
@@ -132,9 +132,9 @@ export default async function PublishControlCenterPage(props: {
               </label>
               <label className="narrio-checkbox">
                 <input name="allowForks" type="checkbox" defaultChecked={Boolean(story.allow_forks)} />
-                <span>Allow readers to create ForkCraft timelines from this story.</span>
+                <span>Allow readers to create Forkcraft timelines from this universe.</span>
               </label>
-              <button className="narrio-button" type="submit">Save story access</button>
+              <button className="narrio-button" type="submit">Save universe access</button>
             </form>
           </SectionCard>
 
@@ -148,7 +148,7 @@ export default async function PublishControlCenterPage(props: {
                       <h3>{branch.name}</h3>
                       <InlineMeta>
                         <span>{branch.visibility}</span>
-                        <span>{branchChapters.filter((chapter) => chapter.is_published).length}/{branchChapters.length} chapters published</span>
+                        <span>{branchChapters.filter((chapter) => chapter.is_published).length}/{branchChapters.length} chapters released</span>
                       </InlineMeta>
                     </div>
                     <Link className="narrio-button-secondary" href={`/write/editor/${story.id}/branch/${branch.id}`}>Edit</Link>
@@ -174,7 +174,7 @@ export default async function PublishControlCenterPage(props: {
         </div>
 
         <div className="narrio-stack">
-          <SectionCard title="Chapter release" description="Publish only chapters that already have reader-safe current versions.">
+          <SectionCard title="Chapter release" description="Release only chapters that already have reader-safe current versions.">
             <div className="narrio-list">
               {timelines.map(({ branch, chapters: branchChapters }) => (
                 <div key={branch.id} className="narrio-list-item">
@@ -195,7 +195,7 @@ export default async function PublishControlCenterPage(props: {
                             <strong>Chapter {chapter.chapter_number}: {chapter.title}</strong>
                             <span className="narrio-muted">{chapter.summary ?? "No summary yet."}</span>
                             <InlineMeta>
-                              <span>{chapter.is_published ? "Published" : "Draft"}</span>
+                              <span>{chapter.is_published ? "Released" : "Draft"}</span>
                               <span>{formatDate(chapter.published_at)}</span>
                             </InlineMeta>
                           </div>
@@ -205,7 +205,7 @@ export default async function PublishControlCenterPage(props: {
                             <input type="hidden" name="chapterId" value={chapter.id} />
                             <input type="hidden" name="isPublished" value={chapter.is_published ? "false" : "true"} />
                             <button className={chapter.is_published ? "narrio-button-secondary" : "narrio-button"} type="submit">
-                              {chapter.is_published ? "Unpublish" : "Publish"}
+                              {chapter.is_published ? "Unrelease" : "Release"}
                             </button>
                           </form>
                         </div>
@@ -219,9 +219,9 @@ export default async function PublishControlCenterPage(props: {
             </div>
           </SectionCard>
 
-          <SectionCard title={`${BRAND.engine} publishing logic`} description="Narrio separates writing from release.">
+          <SectionCard title={`${BRAND.engine} release logic`} description="Narrio separates writing from release.">
             <div className="narrio-callout">
-              A story shell can be published while selected timelines and chapters remain private. This keeps ForkCraft safe: a reader only sees paths you deliberately open.
+              A universe shell can be released while selected timelines and chapters remain private. This keeps Forkcraft safe: a reader only sees paths you deliberately open.
               {privateTimelines > 0 ? ` ${privateTimelines} timeline${privateTimelines === 1 ? " is" : "s are"} currently private.` : " All timelines are currently visible."}
             </div>
           </SectionCard>

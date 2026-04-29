@@ -6,16 +6,16 @@ export default function NewStoryPage() {
     <Stack>
       <PageHeader
         eyebrow="Create"
-        title="Create a new story"
-        description="This creates the story and auto-generates its main branch."
+        title="Create a new universe"
+        description="This creates the universe shell and auto-generates its main timeline."
       />
 
-      <SectionCard title="Story details" description="Keep it simple for Sprint 2.">
+      <SectionCard title="Universe details" description="Keep it simple for Sprint 2.">
         <form action={createStoryAction} className="narrio-form">
           <Field label="Title" name="title" placeholder="The City Beneath the Tide" />
           <Field label="Slug" name="slug" placeholder="the-city-beneath-the-tide" />
           <TextAreaField label="Synopsis" name="synopsis" rows={5} placeholder="Optional public synopsis..." />
-          <PrimaryButton>Create story</PrimaryButton>
+          <PrimaryButton>Create universe</PrimaryButton>
         </form>
       </SectionCard>
     </Stack>

@@ -182,7 +182,7 @@ export default async function LibraryPage(props: {
                     </strong>
                   </Link>
                 ) : (
-                  <div className={styles.latestSignalMuted}>No published chapter is readable yet.</div>
+                  <div className={styles.latestSignalMuted}>No released chapter is readable yet.</div>
                 )}
 
                 <div className={styles.storyActions}>

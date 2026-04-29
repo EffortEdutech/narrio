@@ -1,86 +1,48 @@
-# Narrio — Sprint 5 Productization Pack
+# Narrio Real Story Seed Pack v1
 
-Narrio is a social storytelling platform where every story can branch, fork, and evolve into new timelines.
+This pack is for local/dev Supabase testing.
 
-**Tagline:** Where stories branch forever.  
-**Core engine:** ForkCraft
+It creates:
 
-This pack productizes the existing Sprint 2 Writer Core MVP. It does not change the database model or Supabase RLS.
+- 8 login users, password `test123`
+- 12 written stories at different levels
+- 112 total timelines/universes using `story_branches`
+- 112 chapters
+- 112 current `chapter_versions`
+- lightweight follows, likes, bookmarks, and comments
 
-## Included
-- web app on `http://localhost:3900`
-- marketing app on `http://localhost:3901`
-- Supabase schema + RLS + seed
-- sign-in page
-- protected writer area
-- Story Studio dashboard
-- Create Story flow
-- Chapter editor
-- Version history
-- Restore version action
-- ForkCraft timeline creation flow
+The SQL follows the uploaded schema `20260429-8-26am-Database-Schema.txt`: there is no standalone `universes` table, so universes are represented as timeline branches.
 
-## Product language
+## How to run
 
-| Technical layer | Product language |
-| --- | --- |
-| Story | Story |
-| Branch | Timeline |
-| Create branch | Fork this timeline |
-| Commit message | What changed? |
-| Version | Version |
-| Branch explorer | Timeline explorer |
+In Supabase SQL Editor, run:
 
-Technical tables and API names remain unchanged:
+```sql
+-- files/supabase/seed_forkcraft_real_stories_v1.sql
+```
+
+Then verify:
+
+```sql
+-- files/supabase/verify_forkcraft_real_stories_v1.sql
+```
+
+Expected verification:
 
 ```text
-stories -> story_branches -> chapters -> chapter_versions
+stories            12
+branches           112
+chapters           112
+chapter_versions   112
+seed_login_users   8
 ```
 
-User-facing language becomes:
+## Cleanup
 
-```text
-Story -> Timeline -> Chapter -> Version
+Run:
+
+```sql
+-- files/supabase/cleanup_forkcraft_real_stories_v1.sql
 ```
 
-## Startup
-1. Copy `.env.example` to `.env.local`
-2. Fill your Supabase values
-3. Apply:
-   - `supabase/migrations/0001_core_schema.sql`
-   - `supabase/migrations/0002_rls.sql`
-   - create a test auth user
-   - `supabase/seed.sql`
-4. Install and run:
-   - `pnpm install`
-   - `pnpm dev`
-
-## URLs
-- Web: `http://localhost:3900`
-- Marketing: `http://localhost:3901` via `pnpm dev:marketing`
-
-## Sprint 5 outcome
-By the end of this patch, a signed-in user can still:
-- create a story
-- open its editor
-- create chapters
-- save chapter versions
-- restore an older version
-- fork the current timeline into a new path
-
-And the visible product experience now says:
-
-```text
-Narrio
-Where stories branch forever.
-Powered by ForkCraft.
-```
-
-## Validation
-Run these locally before committing:
-
-```bash
-pnpm install
-pnpm typecheck
-pnpm build
-```
+The cleanup removes the seeded story graph but keeps the auth users/profiles.

@@ -1,0 +1,985 @@
+﻿Narrio Language Audit Report
+RepoRoot: C:\Users\user\Documents\00 StoryBook\narrio
+Generated: 2026-04-29 15:03:49
+
+This script is read-only. It does not modify your local files.
+
+Scanned roots:
+  - C:\Users\user\Documents\00 StoryBook\narrio\apps\web\app
+  - C:\Users\user\Documents\00 StoryBook\narrio\apps\marketing\app
+  - C:\Users\user\Documents\00 StoryBook\narrio\packages\config\src
+  - C:\Users\user\Documents\00 StoryBook\narrio\packages\ui\src
+
+[REVIEW] .\apps\web\app\error.tsx:12
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <p>Refresh this branch of the experience, or return to Library and choose another story universe.</p>
+
+[REVIEW] .\apps\web\app\layout.tsx:8
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : description: "Where stories branch forever."
+
+[WARN] .\apps\web\app\layout.tsx:21
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <span className="narrio-brand-subtitle">ForkCraft Engine</span>
+
+[REVIEW] .\apps\web\app\loading.tsx:9
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <p>Narrio is preparing the next readable branch for you.</p>
+
+[REVIEW] .\apps\web\app\not-found.tsx:10
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <p>The story, chapter, or writer profile may be private, unpublished, or moved into another branch.</p>
+
+[WARN] .\apps\web\app\page.tsx:14
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : {BRAND.tagline} Read a chapter, follow the canon, save a waypoint, or start ForkCraft and
+
+[REVIEW] .\apps\web\app\page.tsx:40
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : <span>Release your version</span>
+
+[WARN] .\apps\web\app\page.tsx:74
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <strong>Start ForkCraft</strong>
+
+[WARN] .\apps\web\app\page.tsx:82
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : title="How ForkCraft works"
+
+[REVIEW] .\apps\web\app\page.tsx:92
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <p className="narrio-muted">A chapter becomes a possible branch point for new choices.</p>
+
+[WARN] .\apps\web\app\page.tsx:96
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <p className="narrio-muted">ForkCraft turns that choice into a readable alternate path.</p>
+
+[WARN] .\apps\web\app\page.tsx:105
+  Found : public stories
+  Prefer: public universes
+  Note  : Discovery page should position published works as universes.
+  Line  : <p className="narrio-muted">Browse public stories and find timelines to follow.</p>
+
+[WARN] .\apps\web\app\activity\page.tsx:30
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : eyebrow="ForkCraft Pulse"
+
+[WARN] .\apps\web\app\launch\page.tsx:7
+  Found : Story page
+  Prefer: Universe page
+  Note  : Reader-facing route copy should use Narrio product language.
+  Line  : title: "Public story page",
+
+[WARN] .\apps\web\app\launch\page.tsx:14
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : note: "Search, sort, ForkCraft filters, latest chapter signals, and author profile links."
+
+[WARN] .\apps\web\app\library\page.tsx:27
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : if (path === "forkcraft") return "ForkCraft universes";
+
+[WARN] .\apps\web\app\library\page.tsx:58
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : description="Search published stories, find ForkCraft-ready worlds, and choose the next timeline to enter."
+
+[REVIEW] .\apps\web\app\library\page.tsx:63
+  Found : published chapters
+  Prefer: released chapters
+  Note  : Writer UI can use release language.
+  Line  : <span>{discovery.totalPublishedChapters} published chapters</span>
+
+[WARN] .\apps\web\app\library\page.tsx:76
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <SectionCard title="Find your next path" description="Search by title, synopsis, or writer name. Then filter by story shape and ForkCraft permission.">
+
+[WARN] .\apps\web\app\library\page.tsx:99
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <option value="forkcraft">ForkCraft branches</option>
+
+[REVIEW] .\apps\web\app\library\page.tsx:99
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <option value="forkcraft">ForkCraft branches</option>
+
+[WARN] .\apps\web\app\library\page.tsx:104
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <span>ForkCraft</span>
+
+[REVIEW] .\apps\web\app\library\page.tsx:107
+  Found : Forking enabled
+  Prefer: Forkcraft open
+  Note  : Use product language for permission state.
+  Line  : <option value="forkable">Forking enabled</option>
+
+[WARN] .\apps\web\app\library\page.tsx:148
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <span>{item.story.allow_forks ? "ForkCraft open" : "Closed canon"}</span>
+
+[WARN] .\apps\web\app\library\page.tsx:169
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <span>{item.forkTimelineCount} ForkCraft paths</span>
+
+[WARN] .\apps\web\app\library\page.tsx:190
+  Found : Story page
+  Prefer: Universe page
+  Note  : Reader-facing route copy should use Narrio product language.
+  Line  : Story page
+
+[WARN] .\apps\web\app\library\page.tsx:202
+  Found : Publish Control Center
+  Prefer: Release Center
+  Note  : Writer-facing publishing language should feel productized.
+  Line  : description="Try removing one filter, or publish another public story from the Publish Control Center."
+
+[REVIEW] .\apps\web\app\onboarding\page.tsx:22
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const writerHref = myFirstStory?.main_branch_id
+
+[REVIEW] .\apps\web\app\onboarding\page.tsx:23
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : ? `/write/editor/${myFirstStory.id}/branch/${myFirstStory.main_branch_id}`
+
+[REVIEW] .\apps\web\app\onboarding\page.tsx:35
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : then write your own version.
+
+[WARN] .\apps\web\app\onboarding\page.tsx:42
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : Start ForkCraft
+
+[WARN] .\apps\web\app\onboarding\page.tsx:62
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <strong>âœ¨ Start ForkCraft</strong>
+
+[REVIEW] .\apps\web\app\onboarding\page.tsx:92
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : description="See how one story can branch into alternate paths without becoming confusing."
+
+[REVIEW] .\apps\web\app\onboarding\page.tsx:112
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : title="Write your version"
+
+[WARN] .\apps\web\app\onboarding\page.tsx:127
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <strong>Start ForkCraft</strong>
+
+[REVIEW] .\apps\web\app\onboarding\page.tsx:141
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <div className="narrio-muted">Look at branches as reader-friendly story paths.</div>
+
+[REVIEW] .\apps\web\app\onboarding\page.tsx:158
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : <div className="narrio-muted">Write chapters, save versions, and fork timelines.</div>
+
+[WARN] .\apps\web\app\write\page.tsx:46
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <SectionCard title="Draft timelines" description="Each story starts with a main timeline and can grow through ForkCraft.">
+
+[REVIEW] .\apps\web\app\write\page.tsx:50
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const editorHref = story.main_branch_id
+
+[REVIEW] .\apps\web\app\write\page.tsx:51
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : ? `/write/editor/${story.id}/branch/${story.main_branch_id}`
+
+[WARN] .\apps\web\app\write\page.tsx:62
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <span>{story.allow_forks ? "ForkCraft on" : "ForkCraft off"}</span>
+
+[REVIEW] .\apps\web\app\write\page.tsx:78
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : No stories yet. Start your first story and create a world that can branch.
+
+[REVIEW] .\apps\web\app\write\bookmarks\page.tsx:66
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const timeline = Array.isArray(chapter?.story_branches)
+
+[REVIEW] .\apps\web\app\write\bookmarks\page.tsx:67
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : ? chapter?.story_branches[0]
+
+[REVIEW] .\apps\web\app\write\bookmarks\page.tsx:68
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : : chapter?.story_branches;
+
+[REVIEW] .\apps\web\app\write\new\page.tsx:10
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : description="This creates the story and auto-generates its main branch."
+
+[REVIEW] .\apps\web\app\reader\actions.ts:10
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : toggleLikeVersion
+
+[REVIEW] .\apps\web\app\reader\actions.ts:85
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const chapterVersionId = formString(formData, "chapterVersionId");
+
+[REVIEW] .\apps\web\app\reader\actions.ts:89
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : await toggleLikeVersion(supabase, { userId: user.id, chapterVersionId });
+
+[REVIEW] .\apps\web\app\reader\fork_actions.ts:4
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : import { forkBranchFromChapter } from "@narrio/api";
+
+[REVIEW] .\apps\web\app\reader\fork_actions.ts:44
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const sourceBranchId = readRequiredString(formData, "sourceBranchId");
+
+[REVIEW] .\apps\web\app\reader\fork_actions.ts:56
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const result = await forkBranchFromChapter(supabase, {
+
+[REVIEW] .\apps\web\app\reader\fork_actions.ts:58
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : sourceBranchId,
+
+[REVIEW] .\apps\web\app\reader\fork_actions.ts:69
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${result.branch.id}${forkPointQuery}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:6
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : createBranch,
+
+[REVIEW] .\apps\web\app\write\actions.ts:8
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : createChapterVersion,
+
+[REVIEW] .\apps\web\app\write\actions.ts:10
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : restoreChapterVersion,
+
+[REVIEW] .\apps\web\app\write\actions.ts:13
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : updateBranchPublicationSettings,
+
+[REVIEW] .\apps\web\app\write\actions.ts:48
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${story.id}/branch/${story.main_branch_id}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:53
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\actions.ts:61
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : branchId,
+
+[REVIEW] .\apps\web\app\write\actions.ts:67
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:69
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapter.id}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:72
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : export async function saveChapterVersionAction(formData: FormData) {
+
+[REVIEW] .\apps\web\app\write\actions.ts:74
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\actions.ts:83
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : await createChapterVersion(supabase, {
+
+[REVIEW] .\apps\web\app\write\actions.ts:93
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:95
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapterId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:98
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : export async function restoreVersionAction(formData: FormData) {
+
+[REVIEW] .\apps\web\app\write\actions.ts:100
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\actions.ts:102
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const versionId = String(formData.get("versionId"));
+
+[REVIEW] .\apps\web\app\write\actions.ts:106
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : await restoreChapterVersion(supabase, {
+
+[REVIEW] .\apps\web\app\write\actions.ts:108
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : versionId,
+
+[REVIEW] .\apps\web\app\write\actions.ts:112
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:114
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapterId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:117
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : export async function createBranchAction(formData: FormData) {
+
+[REVIEW] .\apps\web\app\write\actions.ts:119
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const sourceBranchId = String(formData.get("sourceBranchId"));
+
+[REVIEW] .\apps\web\app\write\actions.ts:126
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branch = await createBranch(supabase, {
+
+[REVIEW] .\apps\web\app\write\actions.ts:128
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : sourceBranchId,
+
+[REVIEW] .\apps\web\app\write\actions.ts:135
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${sourceBranchId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:137
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branch.id}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:169
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\actions.ts:174
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : await updateBranchPublicationSettings(supabase, {
+
+[REVIEW] .\apps\web\app\write\actions.ts:175
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : branchId,
+
+[REVIEW] .\apps\web\app\write\actions.ts:181
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/story/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:182
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\actions.ts:188
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\actions.ts:199
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/story/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:6
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : createChapterVersion,
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:8
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : getCurrentVersionByChapterId
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:24
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:29
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const currentVersion = await getCurrentVersionByChapterId(supabase, chapterId);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:31
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const continuation = await aiContinueChapter(currentVersion.content_md);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:32
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const nextContent = `${currentVersion.content_md}\n\n${continuation}`.trim();
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:34
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : await createChapterVersion(supabase, {
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:44
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:45
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapterId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:50
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:55
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const currentVersion = await getCurrentVersionByChapterId(supabase, chapterId);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:57
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const rewritten = await aiRewriteChapter(currentVersion.content_md);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:59
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : await createChapterVersion(supabase, {
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:69
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:70
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapterId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:75
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:80
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const currentVersion = await getCurrentVersionByChapterId(supabase, chapterId);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:82
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const summary = cleanSingleLine(await aiSummarizeChapter(currentVersion.content_md));
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:84
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : await createChapterVersion(supabase, {
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:89
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : contentMd: currentVersion.content_md,
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:94
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:95
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapterId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:100
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:105
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const currentVersion = await getCurrentVersionByChapterId(supabase, chapterId);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:107
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : const title = cleanSingleLine(await aiSuggestChapterTitle(currentVersion.content_md));
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:109
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : await createChapterVersion(supabase, {
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:114
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : contentMd: currentVersion.content_md,
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:119
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\ai_actions.ts:120
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapterId}`);
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:5
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : import { setChapterPublished, updateBranchVisibility, updateStorySettings } from "@narrio/api";
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:38
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : export async function updateBranchVisibilityAction(formData: FormData) {
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:40
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:46
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : await updateBranchVisibility(supabase, {
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:47
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : branchId,
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:59
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : const branchId = String(formData.get("branchId"));
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:70
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/story/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:71
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : revalidatePath(`/write/editor/${storyId}/branch/${branchId}`);
+
+[REVIEW] .\apps\web\app\write\settings_actions.ts:72
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : redirect(`/write/editor/${storyId}/branch/${branchId}?chapter=${chapterId}`);
+
+[WARN] .\apps\web\app\globals.css:1057
+  Found : Publish Control Center
+  Prefer: Release Center
+  Note  : Writer-facing publishing language should feel productized.
+  Line  : /* Sprint 6.1 â€” Publish Control Center */
+
+[REVIEW] .\apps\marketing\app\layout.tsx:10
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : title: "Narrio â€” Where stories branch forever",
+
+[WARN] .\apps\marketing\app\layout.tsx:12
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : "Narrio is a social storytelling platform where readers fork chapters, create timelines, and build living story universes with ForkCraft."
+
+[WARN] .\apps\marketing\app\layout.tsx:27
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <a href="#forkcraft">ForkCraft</a>
+
+[REVIEW] .\apps\marketing\app\layout.tsx:36
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <p>Narrio â€” Where stories branch forever.</p>
+
+[WARN] .\apps\marketing\app\layout.tsx:37
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <p>ForkCraft is the engine that turns readers into creators.</p>
+
+[WARN] .\apps\marketing\app\page.tsx:8
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : const forkcraftSteps = [
+
+[WARN] .\apps\marketing\app\page.tsx:17
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : body: "Start ForkCraft from any turning point and create your own timeline."
+
+[REVIEW] .\apps\marketing\app\page.tsx:22
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : body: "Your version becomes part of the living story tree for others to read and fork."
+
+[REVIEW] .\apps\marketing\app\page.tsx:30
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : body: "Stories grow as branches, not static posts. Every path has context, origin, and possibility."
+
+[WARN] .\apps\marketing\app\page.tsx:34
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : title: "ForkCraft engine",
+
+[REVIEW] .\apps\marketing\app\page.tsx:40
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : body: "Write, commit versions, explore histories, and shape your story universe over time."
+
+[WARN] .\apps\marketing\app\page.tsx:62
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <a className="brand-pill" href="#forkcraft">
+
+[REVIEW] .\apps\marketing\app\page.tsx:70
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : {BRAND.name} is a social storytelling platform where stories branch,
+
+[WARN] .\apps\marketing\app\page.tsx:78
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : Start ForkCraft
+
+[REVIEW] .\apps\marketing\app\page.tsx:86
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <span>Branching stories</span>
+
+[REVIEW] .\apps\marketing\app\page.tsx:110
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <div className="tree-row tree-row-branches">
+
+[WARN] .\apps\marketing\app\page.tsx:134
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <section className="section-panel" id="forkcraft" aria-labelledby="forkcraft-heading">
+
+[WARN] .\apps\marketing\app\page.tsx:137
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <h2 id="forkcraft-heading">What is ForkCraft?</h2>
+
+[WARN] .\apps\marketing\app\page.tsx:139
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : ForkCraft is the art of creating alternate story paths. It turns
+
+[WARN] .\apps\marketing\app\page.tsx:146
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : {forkcraftSteps.map((item) => (
+
+[WARN] .\apps\marketing\app\page.tsx:175
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : <h3>For Forkcrafters</h3>
+
+[REVIEW] .\apps\marketing\app\page.tsx:177
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : Fork a chapter, write your version, and release a timeline that
+
+[REVIEW] .\apps\marketing\app\page.tsx:227
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : <h2 id="cta-heading">Your story is waiting to branch.</h2>
+
+[WARN] .\apps\marketing\app\page.tsx:229
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : Open Narrio, explore the first timelines, and practice ForkCraft from
+
+[WARN] .\apps\marketing\app\page.tsx:237
+  Found : public stories
+  Prefer: public universes
+  Note  : Discovery page should position published works as universes.
+  Line  : Browse public stories
+
+[REVIEW] .\apps\marketing\app\globals.css:369
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : .tree-row-branches {
+
+[REVIEW] .\apps\marketing\app\globals.css:737
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : .tree-row-branches {
+
+[REVIEW] .\packages\config\src\index.ts:3
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : tagline: "Where stories branch forever.",
+
+[WARN] .\packages\config\src\index.ts:4
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : engine: "ForkCraft",
+
+[REVIEW] .\packages\config\src\index.ts:6
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : "A social storytelling platform where every story can branch, fork, and evolve into new timelines.",
+
+[WARN] .\packages\config\src\index.ts:9
+  Found : ForkCraft
+  Prefer: Forkcraft
+  Note  : Use locked casing unless used in old docs only.
+  Line  : "Write, fork, and explore infinite story timelines. Powered by the ForkCraft engine.",
+
+[REVIEW] .\packages\config\src\index.ts:11
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : writerStudioDescription: "Write, version, and fork your stories into new timelines."
+
+[REVIEW] .\packages\config\src\index.ts:16
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : branchPublic: "Timeline",
+
+[REVIEW] .\packages\config\src\index.ts:17
+  Found : branch
+  Prefer: timeline / path
+  Note  : May be valid in code variables. Review only if visible UI copy.
+  Line  : branchTechnical: "Branch",
+
+[REVIEW] .\packages\config\src\index.ts:19
+  Found : version
+  Prefer: snapshot
+  Note  : May be valid in technical UI. Review only if visible UI copy.
+  Line  : version: "Version",
+
+Total findings: 162

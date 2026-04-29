@@ -1,0 +1,193 @@
+{
+  "version": "v1.3-core-safe",
+  "users": [
+    {
+      "email": "demo.admin@narrio.test",
+      "username": "demo_admin",
+      "password": "test123"
+    },
+    {
+      "email": "lina.writer@narrio.test",
+      "username": "lina_writer",
+      "password": "test123"
+    },
+    {
+      "email": "omar.forkcrafter@narrio.test",
+      "username": "omar_forkcrafter",
+      "password": "test123"
+    },
+    {
+      "email": "maya.reader@narrio.test",
+      "username": "maya_reader",
+      "password": "test123"
+    },
+    {
+      "email": "tariq.worldsmith@narrio.test",
+      "username": "tariq_worldsmith",
+      "password": "test123"
+    },
+    {
+      "email": "sara.editor@narrio.test",
+      "username": "sara_editor",
+      "password": "test123"
+    },
+    {
+      "email": "aiman.arc@narrio.test",
+      "username": "aiman_arc",
+      "password": "test123"
+    },
+    {
+      "email": "nora.pathfinder@narrio.test",
+      "username": "nora_pathfinder",
+      "password": "test123"
+    }
+  ],
+  "stories": [
+    {
+      "no": 1,
+      "slug": "river-that-remembers",
+      "title": "The River That Remembers",
+      "author_username": "lina_writer",
+      "genre": "quiet fantasy",
+      "level": "Level 1 - Canon Path",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 10
+    },
+    {
+      "no": 2,
+      "slug": "lanterns-over-seri-bay",
+      "title": "Lanterns over Seri Bay",
+      "author_username": "lina_writer",
+      "genre": "coastal mystery",
+      "level": "Level 2 - Reader Forks",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 10
+    },
+    {
+      "no": 3,
+      "slug": "clockmakers-orchard",
+      "title": "The Clockmakers Orchard",
+      "author_username": "tariq_worldsmith",
+      "genre": "time orchard fantasy",
+      "level": "Level 3 - Branching Lore",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 10
+    },
+    {
+      "no": 4,
+      "slug": "orbit-of-the-last-musafir",
+      "title": "Orbit of the Last Musafir",
+      "author_username": "aiman_arc",
+      "genre": "soft science fiction",
+      "level": "Level 4 - Parallel Routes",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 10
+    },
+    {
+      "no": 5,
+      "slug": "glass-masjid-seven-moons",
+      "title": "The Glass Masjid of Seven Moons",
+      "author_username": "sara_editor",
+      "genre": "mythic architecture",
+      "level": "Level 5 - Polished Public",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 9
+    },
+    {
+      "no": 6,
+      "slug": "neon-keris-protocol",
+      "title": "The Neon Keris Protocol",
+      "author_username": "omar_forkcrafter",
+      "genre": "cyberpunk silat",
+      "level": "Level 6 - Action Forks",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 9
+    },
+    {
+      "no": 7,
+      "slug": "ashes-paper-kingdom",
+      "title": "Ashes of the Paper Kingdom",
+      "author_username": "sara_editor",
+      "genre": "political fantasy",
+      "level": "Level 7 - Closed Canon",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": false,
+      "branches": 9
+    },
+    {
+      "no": 8,
+      "slug": "child-borrowed-tomorrow",
+      "title": "The Child Who Borrowed Tomorrow",
+      "author_username": "aiman_arc",
+      "genre": "time loop fable",
+      "level": "Level 8 - Time Branches",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 9
+    },
+    {
+      "no": 9,
+      "slug": "bazaar-edge-of-sleep",
+      "title": "The Bazaar at the Edge of Sleep",
+      "author_username": "nora_pathfinder",
+      "genre": "dream market",
+      "level": "Level 9 - Social Discovery",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 9
+    },
+    {
+      "no": 10,
+      "slug": "atlas-rain-cities",
+      "title": "The Atlas of Rain Cities",
+      "author_username": "tariq_worldsmith",
+      "genre": "map fantasy",
+      "level": "Level 10 - Deep ForkCraft",
+      "status": "published",
+      "visibility": "public",
+      "allow_forks": true,
+      "branches": 9
+    },
+    {
+      "no": 11,
+      "slug": "thousand-door-school",
+      "title": "The Thousand Door School",
+      "author_username": "omar_forkcrafter",
+      "genre": "academy adventure",
+      "level": "Level 11 - Community Forks",
+      "status": "published",
+      "visibility": "unlisted",
+      "allow_forks": true,
+      "branches": 9
+    },
+    {
+      "no": 12,
+      "slug": "garden-112th-star",
+      "title": "Garden of the 112th Star",
+      "author_username": "demo_admin",
+      "genre": "cosmic garden fable",
+      "level": "Level 12 - Experimental Draft",
+      "status": "draft",
+      "visibility": "private",
+      "allow_forks": true,
+      "branches": 9
+    }
+  ],
+  "total_branches": 112,
+  "notes": "No base64, no temp tables, no staging tables, no JSON decoding."
+}

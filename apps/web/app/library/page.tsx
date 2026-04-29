@@ -23,11 +23,15 @@ function authorName(author: { display_name: string | null; username: string | nu
   return author?.display_name ?? author?.username ?? "Narrio writer";
 }
 
+function countLabel(count: number, singular: string, plural?: string) {
+  return `${count} ${count === 1 ? singular : plural ?? `${singular}s`}`;
+}
+
 function discoveryLabel(path: string, fork: string) {
-  if (path === "forkcraft") return "ForkCraft universes";
+  if (path === "forkcraft") return "Forkcraft universes";
   if (path === "root") return "Root paths";
-  if (fork === "forkable") return "Fork-friendly stories";
-  if (fork === "closed") return "Closed-canon stories";
+  if (fork === "forkable") return "Forkcraft-open universes";
+  if (fork === "closed") return "Closed-canon universes";
   return "Public discovery";
 }
 
@@ -47,6 +51,7 @@ export default async function LibraryPage(props: {
     path,
     fork
   });
+  const displayQuery = q.trim();
 
   return (
     <Stack>
@@ -55,34 +60,35 @@ export default async function LibraryPage(props: {
           <PageHeader
             eyebrow="Library"
             title="Discover story universes"
-            description="Search published stories, find ForkCraft-ready worlds, and choose the next timeline to enter."
+            description="Search public universes, find Forkcraft-open worlds, and choose the next timeline to enter."
           />
           <InlineMeta>
-            <span>{discovery.totalStories} stories</span>
-            <span>{discovery.totalTimelines} public timelines</span>
-            <span>{discovery.totalPublishedChapters} published chapters</span>
-            <span>{discovery.forkableStories} forkable</span>
+            <span>{countLabel(discovery.totalStories, "public universe", "public universes")}</span>
+            <span>{countLabel(discovery.totalTimelines, "public timeline")}</span>
+            <span>{countLabel(discovery.totalPublishedChapters, "released chapter")}</span>
+            <span>{countLabel(discovery.forkableStories, "Forkcraft-open universe", "Forkcraft-open universes")}</span>
           </InlineMeta>
         </div>
 
         <div className={styles.heroCard}>
           <span>{discoveryLabel(discovery.path, discovery.fork)}</span>
-          <strong>{discovery.query ? `Searching “${discovery.query}”` : "Fresh public signals"}</strong>
-          <p>Library discovery now reads public story, timeline, and chapter data instead of showing a flat list.</p>
+          <strong>{displayQuery ? `Searching “${displayQuery}”` : "Fresh public signals"}</strong>
+          <p>Library discovery reads universe, timeline, and chapter signals instead of showing a flat list.</p>
         </div>
       </section>
 
-      <SectionCard title="Find your next path" description="Search by title, synopsis, or writer name. Then filter by story shape and ForkCraft permission.">
+      <div className={styles.discoveryPanel}>
+        <SectionCard title="Find your next path" description="Search by universe title, synopsis, or writer name. Then filter by timeline shape and Forkcraft permission.">
         <form className={styles.discoveryForm}>
           <label>
             <span>Search</span>
-            <input name="q" defaultValue={discovery.query} placeholder="dragon archive, moon city, lost heir..." />
+            <input name="q" defaultValue={displayQuery} placeholder="dragon archive, moon city, lost heir..." />
           </label>
 
           <label>
             <span>Sort</span>
             <select name="sort" defaultValue={discovery.sort}>
-              <option value="newest">Newest stories</option>
+              <option value="newest">Newest universes</option>
               <option value="updated">Recently updated</option>
               <option value="title">Title A-Z</option>
               <option value="chapters">Most chapters</option>
@@ -95,15 +101,15 @@ export default async function LibraryPage(props: {
             <select name="path" defaultValue={discovery.path}>
               <option value="all">All public paths</option>
               <option value="root">Root timelines</option>
-              <option value="forkcraft">ForkCraft branches</option>
+              <option value="forkcraft">Forkcraft paths</option>
             </select>
           </label>
 
           <label>
-            <span>ForkCraft</span>
+            <span>Forkcraft</span>
             <select name="fork" defaultValue={discovery.fork}>
               <option value="all">Any permission</option>
-              <option value="forkable">Forking enabled</option>
+              <option value="forkable">Forkcraft open</option>
               <option value="closed">Closed canon</option>
             </select>
           </label>
@@ -117,12 +123,13 @@ export default async function LibraryPage(props: {
             </Link>
           </div>
         </form>
-      </SectionCard>
+        </SectionCard>
+      </div>
 
       <div className={styles.resultHeader}>
         <div>
           <span className={styles.resultEyebrow}>Discovery results</span>
-          <h2>{discovery.totalStories ? `${discovery.totalStories} public story${discovery.totalStories === 1 ? "" : "ies"}` : "No matching stories yet"}</h2>
+          <h2>{discovery.totalStories ? countLabel(discovery.totalStories, "public universe", "public universes") : "No matching universe yet"}</h2>
         </div>
         <Link className="narrio-button-secondary" href="/onboarding">
           New here? Start in 60 seconds
@@ -143,7 +150,7 @@ export default async function LibraryPage(props: {
                     : undefined
                 }
               >
-                <span>{item.story.allow_forks ? "ForkCraft open" : "Closed canon"}</span>
+                <span>{item.story.allow_forks ? "Forkcraft open" : "Closed canon"}</span>
               </div>
 
               <div className={styles.storyBody}>
@@ -159,12 +166,12 @@ export default async function LibraryPage(props: {
                 </div>
 
                 <h3>{item.story.title}</h3>
-                <p>{item.story.synopsis ?? "A published Narrio universe waiting for its first synopsis."}</p>
+                <p>{item.story.synopsis ?? "A public Narrio universe waiting for its first synopsis."}</p>
 
                 <InlineMeta>
-                  <span>{item.publishedChapterCount} chapters</span>
-                  <span>{item.timelineCount} timelines</span>
-                  <span>{item.forkTimelineCount} ForkCraft paths</span>
+                  <span>{countLabel(item.publishedChapterCount, "chapter")}</span>
+                  <span>{countLabel(item.timelineCount, "timeline")}</span>
+                  <span>{countLabel(item.forkTimelineCount, "Forkcraft path")}</span>
                 </InlineMeta>
 
                 {item.latestChapter ? (
@@ -185,7 +192,7 @@ export default async function LibraryPage(props: {
                     </Link>
                   ) : null}
                   <Link className="narrio-button-secondary" href={`/story/${item.story.id}`}>
-                    Story page
+                    Universe page
                   </Link>
                   <Link className="narrio-button-secondary" href={`/story/${item.story.id}/timelines`}>
                     Timelines
@@ -196,8 +203,8 @@ export default async function LibraryPage(props: {
           ))
         ) : (
           <SectionCard
-            title="No story matched this discovery path"
-            description="Try removing one filter, or publish another public story from the Publish Control Center."
+            title="No universe matched this discovery path"
+            description="Try removing one filter, or release another public universe from the Release Center."
           >
             <Link className="narrio-button" href="/library">
               Clear discovery filters

@@ -29,6 +29,14 @@
   text-transform: uppercase;
 }
 
+
+.resultEyebrow {
+  border: 1px solid rgba(108, 92, 231, 0.18);
+  background: rgba(108, 92, 231, 0.1);
+  color: #4c1d95;
+}
+
+
 .heroCard strong {
   display: block;
   margin-top: 0.9rem;
@@ -40,6 +48,14 @@
   margin: 0.55rem 0 0;
   color: rgba(226, 232, 240, 0.76);
   line-height: 1.65;
+}
+
+.discoveryPanel :global(.narrio-muted) {
+  color: #514766;
+}
+
+.discoveryPanel :global(.narrio-card-header h2) {
+  color: #201636;
 }
 
 .discoveryForm {
@@ -55,7 +71,7 @@
 }
 
 .discoveryForm label span {
-  color: rgba(226, 232, 240, 0.76);
+  color: #3b2f5c;
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -65,13 +81,31 @@
 .discoveryForm input,
 .discoveryForm select {
   min-height: 46px;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(108, 92, 231, 0.24);
   border-radius: 16px;
   padding: 0.72rem 0.9rem;
-  background: rgba(15, 23, 42, 0.68);
-  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.96);
+  color: #201636;
   outline: none;
+  box-shadow: 0 10px 24px rgba(38, 25, 74, 0.06);
 }
+
+.discoveryForm input::placeholder {
+  color: #6f6485;
+  opacity: 1;
+}
+
+.discoveryForm select option {
+  background: #ffffff;
+  color: #201636;
+}
+
+.discoveryForm input:-webkit-autofill,
+.discoveryForm select:-webkit-autofill {
+  -webkit-text-fill-color: #201636;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+}
+
 
 .discoveryForm input:focus,
 .discoveryForm select:focus {
@@ -95,9 +129,16 @@
 
 .resultHeader h2 {
   margin: 0.55rem 0 0;
-  color: #f8fafc;
+  color: #201636;
   font-size: clamp(1.5rem, 3vw, 2.35rem);
 }
+
+.resultHeader p {
+  margin: 0.45rem 0 0;
+  color: #514766;
+  font-weight: 700;
+}
+
 
 .libraryGrid {
   display: grid;
@@ -218,7 +259,15 @@
     grid-template-columns: 1fr;
   }
 
-  .discoveryForm {
+  .discoveryPanel :global(.narrio-muted) {
+  color: #514766;
+}
+
+.discoveryPanel :global(.narrio-card-header h2) {
+  color: #201636;
+}
+
+.discoveryForm {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -228,7 +277,15 @@
 }
 
 @media (max-width: 680px) {
-  .discoveryForm {
+  .discoveryPanel :global(.narrio-muted) {
+  color: #514766;
+}
+
+.discoveryPanel :global(.narrio-card-header h2) {
+  color: #201636;
+}
+
+.discoveryForm {
     grid-template-columns: 1fr;
   }
 

@@ -77,8 +77,61 @@ export type LibraryDiscoveryResult = {
   items: LibraryDiscoveryItem[];
 };
 
+const SEARCH_STOP_WORDS = new Set([
+  "a",
+  "an",
+  "and",
+  "are",
+  "as",
+  "at",
+  "by",
+  "for",
+  "from",
+  "in",
+  "into",
+  "is",
+  "it",
+  "its",
+  "of",
+  "on",
+  "or",
+  "that",
+  "the",
+  "this",
+  "to",
+  "was",
+  "were",
+  "who",
+  "with"
+]);
+
 function normalizeText(value?: string | null) {
-  return (value ?? "").trim().toLowerCase();
+  return (value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function normalizeSearchTerms(query: string) {
+  const terms = query
+    .split(/[^a-z0-9]+/i)
+    .map((term) => term.trim().toLowerCase())
+    .filter((term) => term.length > 1 && !SEARCH_STOP_WORDS.has(term));
+
+  return Array.from(new Set(terms));
+}
+
+function includesSearchTerm(value: string, term: string) {
+  if (value.includes(term)) return true;
+
+  if (term.endsWith("ies")) {
+    const singular = `${term.slice(0, -3)}y`;
+    if (value.includes(singular)) return true;
+  }
+
+  if (term.endsWith("s") && term.length > 3) {
+    const singular = term.slice(0, -1);
+    if (value.includes(singular)) return true;
+  }
+
+  return false;
 }
 
 function normalizeSort(value?: string | null): LibrarySortMode {
@@ -113,18 +166,35 @@ function byLatestChapterDate(a: Chapter, b: Chapter) {
 function scoreStoryMatch(story: Story, author: Profile | null, query: string) {
   if (!query) return 1;
 
+  const phrase = normalizeText(query);
   const title = normalizeText(story.title);
   const synopsis = normalizeText(story.synopsis);
   const writer = normalizeText(author?.display_name ?? author?.username);
-  const terms = query.split(/\s+/).filter(Boolean);
+  const searchableText = `${title} ${synopsis} ${writer}`;
+  const terms = normalizeSearchTerms(query);
 
   let score = 0;
 
-  for (const term of terms) {
+  if (title === phrase) score += 100;
+  if (title.includes(phrase)) score += 60;
+  if (synopsis.includes(phrase)) score += 35;
+  if (writer.includes(phrase)) score += 25;
+
+  // A query made only of stop-words should not behave like "show everything".
+  if (!terms.length) return score;
+
+  const matchedTerms = terms.filter((term) => includesSearchTerm(searchableText, term));
+
+  // Multi-word search should be AND-like, not OR-like.
+  // This prevents phrases such as "the child who borrowed" from matching every universe only because of "the" / "who".
+  const requiredMatches = terms.length <= 2 ? terms.length : Math.ceil(terms.length * 0.75);
+  if (!score && matchedTerms.length < requiredMatches) return 0;
+
+  for (const term of matchedTerms) {
     if (title === term) score += 10;
-    if (title.includes(term)) score += 6;
-    if (synopsis.includes(term)) score += 3;
-    if (writer.includes(term)) score += 2;
+    if (includesSearchTerm(title, term)) score += 6;
+    if (includesSearchTerm(synopsis, term)) score += 3;
+    if (includesSearchTerm(writer, term)) score += 2;
   }
 
   return score;
